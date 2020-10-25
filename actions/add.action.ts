@@ -1,3 +1,5 @@
+import * as chalk from 'chalk';
+
 import { Input } from '../commands';
 import { createRepository } from '../lib/persistence/repository.factory';
 import { buildProject } from '../lib/project/builder/project.builder';
@@ -17,11 +19,21 @@ export class AddAction extends AbstractAction {
 
       const created = await repository.create(project);
 
-      console.log('Created', created);
-
-      // TODO:
-      // Show success message!!
-      // Show command to call project
+      if (created) {
+        console.log(
+          chalk.green(
+            `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
+          ),
+        );
+        project.getSubprojects().forEach((subproject) => {
+          console.log(
+            chalk.green(
+              `+ Subproject "${subproject.getPath()}": Success.\n`,
+              `  Run "fun with ${project.getAlias()}:${subproject.getPath()}"!\n`,
+            ),
+          );
+        });
+      }
     } catch (err) {
       console.log('err', err);
     }
