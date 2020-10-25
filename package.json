@@ -1,0 +1,90 @@
+{
+  "name": "@happy-coders/fun-cli",
+  "version": "0.1.0",
+  "description": "Be your project management more funny!",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">= 10.13.0",
+    "npm": ">= 6.11.0"
+  },
+  "bin": {
+    "fun": "bin/fun.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "gulp clean:bundle",
+    "format": "prettier --write \"**/*.ts\"",
+    "lint": "eslint '{lib,commands,actions}/**/*.ts' --fix",
+    "start": "node bin/fun.js",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "test": "jest --config test/jest-config.json",
+    "test:dev": "npm run clean && jest --config test/jest-config.json --watchAll",
+    "prerelease": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/happy-coders/fun-cli.git"
+  },
+  "contributors": [
+    "Samuel Martins <sam.martins.dev@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/happy-coders/fun-cli/issues"
+  },
+  "homepage": "https://github.com/happy-coders/fun-cli#readme",
+  "dependencies": {
+    "@types/webpack": "4.41.21",
+    "chalk": "3.0.0",
+    "cli-table3": "0.5.1",
+    "commander": "4.1.1",
+    "fork-ts-checker-webpack-plugin": "5.1.0",
+    "inquirer": "7.3.3",
+    "os-name": "3.1.0",
+    "rimraf": "3.0.2",
+    "shelljs": "0.8.4",
+    "tree-kill": "1.2.2",
+    "tsconfig-paths": "3.9.0",
+    "tsconfig-paths-webpack-plugin": "3.3.0",
+    "typescript": "^3.6.4",
+    "webpack": "4.44.1",
+    "webpack-node-externals": "2.5.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-angular": "11.0.0",
+    "@types/copyfiles": "2.4.0",
+    "@types/inquirer": "^7.3.1",
+    "@types/jest": "26.0.14",
+    "@types/node": "12.12.31",
+    "@types/os-name": "2.0.0",
+    "@types/rimraf": "3.0.0",
+    "@types/shelljs": "0.8.8",
+    "@types/webpack-node-externals": "2.5.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "delete-empty": "3.0.0",
+    "eslint": "7.12.0",
+    "eslint-config-prettier": "6.14.0",
+    "eslint-plugin-import": "2.22.1",
+    "gulp": "4.0.2",
+    "gulp-clean": "0.4.0",
+    "husky": "4.3.0",
+    "jest": "26.6.1",
+    "prettier": "2.1.2",
+    "release-it": "14.2.0",
+    "ts-jest": "26.4.2",
+    "ts-loader": "8.0.7",
+    "ts-node": "9.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
