@@ -38,8 +38,6 @@ describe('Build project', () => {
 
         expect(builtProject).toStrictEqual(project);
       });
-
-      it.todo('should create a file with project definitions');
     });
 
     describe('With two subprojects and with open-vscode action', () => {
@@ -109,8 +107,6 @@ describe('Build project', () => {
 
         expect(builtProject).toStrictEqual(project);
       });
-
-      it.todo('should create a file with project definitions');
     });
   });
 });

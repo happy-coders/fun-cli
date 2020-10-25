@@ -1,5 +1,5 @@
 import { Action } from './actions/abstract.action';
-import { ActionFactory } from './actions/action.factory';
+import { createAction } from './actions/action.factory';
 import { BuildProjectAnswers } from './builder/questions.builder';
 
 export class Project {
@@ -39,7 +39,7 @@ export class Project {
   ) {
     const instance = new Project(alias, path);
     actions?.forEach((action) => {
-      instance.addAction(ActionFactory.create(action));
+      instance.addAction(createAction(action));
     });
     return instance;
   }
