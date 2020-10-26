@@ -1,9 +1,9 @@
 import * as chalk from 'chalk';
 
 import { Input } from '../commands';
-import { createRepository } from '../lib/persistence/repository.factory';
 import { buildProject } from '../lib/project/builder/project.builder';
 import { buildProjectQuestions } from '../lib/project/builder/questions.builder';
+import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { AbstractAction } from './abstract.action';
 
 export class AddAction extends AbstractAction {
@@ -15,7 +15,7 @@ export class AddAction extends AbstractAction {
     try {
       const project = await buildProject(projectAlias, questions);
 
-      const repository = await createRepository();
+      const repository = await createProjectRepository();
 
       const created = await repository.create(project);
 

@@ -23,3 +23,12 @@ brew install fun-cli
 ## Usage
 
 TODO
+
+## TODO
+
+- Ask for alias on subproject
+- Make more easy to know about what project/subproject are the questions
+- Fix the default values of the questions
+- Add questions validations
+  - Validate if directory exists
+  - Validate if project already exists with alias

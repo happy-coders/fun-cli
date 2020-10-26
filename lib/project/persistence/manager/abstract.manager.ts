@@ -1,6 +1,6 @@
-import { Project } from '../project/project.entity';
+import { Project } from '../../project.entity';
 
-export abstract class AbstractRepository {
+export abstract class AbstractManager {
   public abstract create(project: Project): Promise<boolean>;
   public abstract listAll(): Promise<Project[]>;
   public abstract findOne(alias: string): Promise<Project | undefined>;

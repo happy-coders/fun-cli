@@ -22,8 +22,8 @@
     "publish:next": "npm publish --access public --tag next",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
-    "test": "jest --config test/jest-config.json",
-    "test:dev": "npm run clean && jest --config test/jest-config.json --watchAll",
+    "test": "jest --config jest-config.json",
+    "test:dev": "npm run clean && jest --config jest-config.json --watchAll",
     "prerelease": "npm run build"
   },
   "repository": {
