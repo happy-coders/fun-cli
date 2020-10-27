@@ -8,27 +8,47 @@ Open your projects in the most fun way possible! With `fun-cli` you can manage y
 
 ## Install
 
-Use `npm` or `yarn`:
-
 ```sh
 yarn add -g @smartinsf/fun-cli
 ```
 
-MacOS (Brew)
+or
 
 ```sh
-brew install fun-cli
+npm i -g @smartinsf/fun-cli
 ```
 
 ## Usage
 
-TODO
+### Adding projects
+
+Run the command `fun add <project-alias> --path <project-absolute-path>`. E.g.:
+
+```sh
+fun add awesome:api --path ~/Projects/awesome/api
+```
+
+You'll be asked to choose some actions:
+
+![actions](docs/images/actions.png)
+
+Choose it like your preferences and you are ready to play!
+
+### Run the project
+
+Call a created project running `fun with <project-alias>`. E.g.:
+
+```sh
+fun with awesome:api
+```
+
+Your chosen actions should be executed!
 
 ## TODO
 
-- Ask for alias on subproject
-- Make more easy to know about what project/subproject are the questions
-- Fix the default values of the questions
 - Add questions validations
   - Validate if directory exists
   - Validate if project already exists with alias
+- Add other editor options
+  - [x] VSCode
+  - [ ] PHPStorm

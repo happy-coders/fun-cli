@@ -8,10 +8,17 @@ export class AddCommand extends AbstractCommand {
       .command('add <project-alias>')
       .allowUnknownOption(false)
       .description('Adds funny project.')
-      .usage('<project-alias>')
-      .action(async (alias: string) => {
+      .requiredOption(
+        '-p, --path <path>',
+        'The absolute path to your fun project.',
+      )
+      .usage('<project-alias> [options]')
+      .action(async (alias: string, path: string) => {
         const inputs: Input[] = [];
-        inputs.push({ name: 'alias', value: alias });
+        inputs.push(
+          { name: 'alias', value: alias },
+          { name: 'path', value: path },
+        );
 
         try {
           await this.action.handle(inputs);

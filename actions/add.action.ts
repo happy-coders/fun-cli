@@ -9,11 +9,12 @@ import { AbstractAction } from './abstract.action';
 export class AddAction extends AbstractAction {
   public async handle(inputs: Input[]) {
     const projectAlias = this.getProjectAlias(inputs);
+    const projectPath = this.getProjectPath(inputs);
 
     const questions = buildProjectQuestions();
 
     try {
-      const project = await buildProject(projectAlias, questions);
+      const project = await buildProject(projectAlias, projectPath, questions);
 
       const repository = await createProjectRepository();
 
@@ -25,14 +26,11 @@ export class AddAction extends AbstractAction {
             `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
           ),
         );
-        project.getSubprojects().forEach((subproject) => {
-          console.log(
-            chalk.green(
-              `+ Subproject "${subproject.getPath()}": Success.\n`,
-              `  Run "fun with ${project.getAlias()}:${subproject.getPath()}"!\n`,
-            ),
-          );
-        });
+        console.log(
+          chalk.green(
+            `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
+          ),
+        );
       }
     } catch (err) {
       console.log('err', err);
@@ -46,6 +44,17 @@ export class AddAction extends AbstractAction {
 
     if (!aliasInput) {
       throw new Error('No alias found in command input');
+    }
+    return aliasInput.value as string;
+  }
+
+  private getProjectPath(inputs: Input[]): string {
+    const aliasInput: Input = inputs.find(
+      (input) => input.name === 'path',
+    ) as Input;
+
+    if (!aliasInput) {
+      throw new Error('No path found in command input');
     }
     return aliasInput.value as string;
   }

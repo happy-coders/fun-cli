@@ -1,5 +1,5 @@
 import { ActionName } from './abstract.action';
-import { OpenVSCode } from './open-vscode.action';
+import { OpenVSCode } from './open-editor/vscode.action';
 
 export function createAction(name: ActionName) {
   if (name === 'open-vscode') {
