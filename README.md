@@ -28,11 +28,7 @@ Run the command `fun add <project-alias> --path <project-absolute-path>`. E.g.:
 fun add awesome:api --path ~/Projects/awesome/api
 ```
 
-You'll be asked to choose some actions:
-
-![actions](docs/images/actions.png)
-
-Choose it like your preferences and you are ready to play!
+You'll be asked to choose some tasks. Choose it like your preferences and you are ready to play!
 
 ### Run the project
 
@@ -42,7 +38,7 @@ Call a created project running `fun with <project-alias>`. E.g.:
 fun with awesome:api
 ```
 
-Your chosen actions should be executed!
+Your chosen tasks should be executed!
 
 ## TODO
 

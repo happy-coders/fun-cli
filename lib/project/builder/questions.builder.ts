@@ -3,7 +3,7 @@ import { QuestionCollection } from 'inquirer';
 import { TaskName } from '../tasks/abstract.task';
 
 export interface BuildProjectAnswers {
-  actions: TaskName[];
+  tasks: TaskName[];
 }
 
 export type BuildProjectQuestionCollection = QuestionCollection<
@@ -14,7 +14,7 @@ export function buildProjectQuestions(): BuildProjectQuestionCollection {
   return [
     {
       type: 'checkbox',
-      name: 'actions',
+      name: 'tasks',
       message: 'What will happen when the project opens?',
       choices: [
         {

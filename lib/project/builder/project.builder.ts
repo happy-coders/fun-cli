@@ -12,7 +12,7 @@ export async function buildProject(
   const answers = await inquirer.prompt(questions);
 
   const project = new Project(alias, path);
-  answers.actions?.forEach((action) => {
+  answers.tasks?.forEach((action) => {
     project.addTask(createTask(action));
   });
 

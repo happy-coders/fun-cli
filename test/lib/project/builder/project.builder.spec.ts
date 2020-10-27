@@ -19,7 +19,7 @@ describe('Build project', () => {
       const questions = {} as BuildProjectQuestionCollection;
 
       const answers = {
-        actions: ['open-vscode'],
+        tasks: ['open-vscode'],
       };
 
       prompt.mockResolvedValue(answers);

@@ -9,19 +9,19 @@ describe('Build questions', () => {
       questions = buildProjectQuestions() as any;
     });
 
-    describe('Actions question', () => {
-      let actionsQuestion: CheckboxQuestion;
+    describe('Tasks question', () => {
+      let tasksQuestion: CheckboxQuestion;
       beforeAll(() => {
-        actionsQuestion = questions[0];
+        tasksQuestion = questions[0];
       });
 
       it('should be correct definitions', () => {
-        expect(actionsQuestion.message).toBe(
+        expect(tasksQuestion.message).toBe(
           'What will happen when the project opens?',
         );
-        expect(actionsQuestion.name).toBe('actions');
-        expect(actionsQuestion.type).toBe('checkbox');
-        expect(actionsQuestion.choices).toStrictEqual([
+        expect(tasksQuestion.name).toBe('tasks');
+        expect(tasksQuestion.type).toBe('checkbox');
+        expect(tasksQuestion.choices).toStrictEqual([
           {
             name: 'Open VSCode',
             value: 'open-vscode',
