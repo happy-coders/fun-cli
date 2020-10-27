@@ -1,11 +1,11 @@
 import * as chalk from 'chalk';
 
 import { AddAction } from '../../actions/add.action';
-import * as repositoryFactory from '../../lib/project/persistence/repository.factory';
-import { OpenVSCode } from '../../lib/project/actions/open-editor/vscode.action';
 import * as projectBuilder from '../../lib/project/builder/project.builder';
 import * as projectQuestionsBuilder from '../../lib/project/builder/questions.builder';
+import * as repositoryFactory from '../../lib/project/persistence/repository.factory';
 import { Project } from '../../lib/project/project.entity';
+import { OpenVSCode } from '../../lib/project/tasks/open-editor/vscode.task';
 
 jest.mock('../../lib/project/builder/project.builder');
 jest.mock('../../lib/project/builder/questions.builder');
@@ -59,7 +59,7 @@ describe('Add action', () => {
           const project = new Project(alias, __dirname);
 
           const api = new Project(alias, 'api');
-          api.addAction(new OpenVSCode());
+          api.addTask(new OpenVSCode());
 
           return project;
         };

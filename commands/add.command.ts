@@ -1,4 +1,5 @@
-import { CommanderStatic } from 'commander';
+import { Command, CommanderStatic } from 'commander';
+
 import { AbstractCommand } from './abstract.command';
 import { Input } from './command.input';
 
@@ -13,11 +14,11 @@ export class AddCommand extends AbstractCommand {
         'The absolute path to your fun project.',
       )
       .usage('<project-alias> [options]')
-      .action(async (alias: string, path: string) => {
+      .action(async (alias: string, command: Command) => {
         const inputs: Input[] = [];
         inputs.push(
           { name: 'alias', value: alias },
-          { name: 'path', value: path },
+          { name: 'path', value: command.path },
         );
 
         try {

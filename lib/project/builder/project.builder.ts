@@ -13,7 +13,7 @@ export async function buildProject(
 
   const project = new Project(alias, path);
   answers.actions?.forEach((action) => {
-    project.addAction(createTask(action));
+    project.addTask(createTask(action));
   });
 
   return project;

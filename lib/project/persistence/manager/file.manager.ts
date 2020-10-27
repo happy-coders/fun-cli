@@ -1,5 +1,6 @@
 import * as fs from 'fs';
-import { Project } from './../../project.entity';
+
+import { Project } from '../../project.entity';
 import { AbstractManager } from './abstract.manager';
 
 export interface ProjectsFileContent {

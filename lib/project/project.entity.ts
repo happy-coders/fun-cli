@@ -1,18 +1,16 @@
 import { Task } from './tasks/abstract.task';
 
 export class Project {
-  private subprojects: Project[] = [];
-
-  private actions: Task[] = [];
+  private tasks: Task[] = [];
 
   constructor(private alias: string, private path: string) {}
 
-  addAction(action: Task) {
-    this.actions.push(action);
+  addTask(task: Task) {
+    this.tasks.push(task);
   }
 
-  getActions() {
-    return this.actions;
+  getTasks() {
+    return this.tasks;
   }
 
   getAlias() {

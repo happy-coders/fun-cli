@@ -1,9 +1,9 @@
 import * as inquirer from 'inquirer';
 
-import { OpenVSCode } from '../../../../lib/project/tasks/open-editor/vscode.task';
 import { buildProject } from '../../../../lib/project/builder/project.builder';
 import { BuildProjectQuestionCollection } from '../../../../lib/project/builder/questions.builder';
 import { Project } from '../../../../lib/project/project.entity';
+import { OpenVSCode } from '../../../../lib/project/tasks/open-editor/vscode.task';
 
 jest.mock('inquirer');
 
@@ -28,7 +28,7 @@ describe('Build project', () => {
 
     it('should built project with open-vscode action', () => {
       const project = new Project(alias, path);
-      project.addAction(new OpenVSCode());
+      project.addTask(new OpenVSCode());
 
       expect(builtProject).toStrictEqual(project);
     });

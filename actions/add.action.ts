@@ -49,13 +49,14 @@ export class AddAction extends AbstractAction {
   }
 
   private getProjectPath(inputs: Input[]): string {
-    const aliasInput: Input = inputs.find(
+    const pathInput: Input = inputs.find(
       (input) => input.name === 'path',
     ) as Input;
 
-    if (!aliasInput) {
+    if (!pathInput) {
       throw new Error('No path found in command input');
     }
-    return aliasInput.value as string;
+
+    return pathInput.value as string;
   }
 }
