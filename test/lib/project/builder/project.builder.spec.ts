@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 
-import { OpenVSCode } from '../../../../lib/project/actions/open-editor/vscode.action';
+import { OpenVSCode } from '../../../../lib/project/tasks/open-editor/vscode.task';
 import { buildProject } from '../../../../lib/project/builder/project.builder';
 import { BuildProjectQuestionCollection } from '../../../../lib/project/builder/questions.builder';
 import { Project } from '../../../../lib/project/project.entity';

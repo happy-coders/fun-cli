@@ -1,13 +1,13 @@
-import { Action } from './actions/abstract.action';
+import { Task } from './tasks/abstract.task';
 
 export class Project {
   private subprojects: Project[] = [];
 
-  private actions: Action[] = [];
+  private actions: Task[] = [];
 
   constructor(private alias: string, private path: string) {}
 
-  addAction(action: Action) {
+  addAction(action: Task) {
     this.actions.push(action);
   }
 

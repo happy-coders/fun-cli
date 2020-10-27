@@ -1,9 +1,9 @@
 import { QuestionCollection } from 'inquirer';
 
-import { ActionName } from '../actions/abstract.action';
+import { TaskName } from '../tasks/abstract.task';
 
 export interface BuildProjectAnswers {
-  actions: ActionName[];
+  actions: TaskName[];
 }
 
 export type BuildProjectQuestionCollection = QuestionCollection<

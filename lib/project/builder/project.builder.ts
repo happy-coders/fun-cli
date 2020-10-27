@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 
-import { createAction } from '../actions/action.factory';
+import { createTask } from '../tasks/task.factory';
 import { Project } from '../project.entity';
 import { BuildProjectQuestionCollection } from './questions.builder';
 
@@ -13,7 +13,7 @@ export async function buildProject(
 
   const project = new Project(alias, path);
   answers.actions?.forEach((action) => {
-    project.addAction(createAction(action));
+    project.addAction(createTask(action));
   });
 
   return project;
