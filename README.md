@@ -48,3 +48,4 @@ Your chosen tasks should be executed!
 - Add other editor options
   - [x] VSCode
   - [ ] PHPStorm
+- [ ] Make messages and results more beaultiful

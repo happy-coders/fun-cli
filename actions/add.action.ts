@@ -1,4 +1,5 @@
 import * as chalk from 'chalk';
+import * as fs from 'fs';
 
 import { Input } from '../commands';
 import { buildProject } from '../lib/project/builder/project.builder';
@@ -13,27 +14,23 @@ export class AddAction extends AbstractAction {
 
     const questions = buildProjectQuestions();
 
-    try {
-      const project = await buildProject(projectAlias, projectPath, questions);
+    const project = await buildProject(projectAlias, projectPath, questions);
 
-      const repository = await createProjectRepository();
+    const repository = await createProjectRepository();
 
-      const created = await repository.create(project);
+    const created = await repository.create(project);
 
-      if (created) {
-        console.log(
-          chalk.green(
-            `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
-          ),
-        );
-        console.log(
-          chalk.green(
-            `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
-          ),
-        );
-      }
-    } catch (err) {
-      console.log('err', err);
+    if (created) {
+      console.log(
+        chalk.green(
+          `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
+        ),
+      );
+      console.log(
+        chalk.green(
+          `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
+        ),
+      );
     }
   }
 
@@ -57,6 +54,24 @@ export class AddAction extends AbstractAction {
       throw new Error('No path found in command input');
     }
 
-    return pathInput.value as string;
+    const path = pathInput.value as string;
+
+    if (!fs.existsSync(path)) {
+      const errorMessage = `\nPath "${path}" not exists or is unacessible\n`;
+
+      console.error(chalk.red(errorMessage));
+
+      throw new Error(errorMessage);
+    }
+
+    if (!fs.lstatSync(path).isDirectory()) {
+      const errorMessage = '\nPath must be a directory\n';
+
+      console.error(chalk.red(errorMessage));
+
+      throw new Error(errorMessage);
+    }
+
+    return path;
   }
 }
