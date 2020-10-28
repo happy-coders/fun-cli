@@ -98,9 +98,6 @@ describe('Add action', () => {
         });
 
         describe('With valid path', () => {
-          const path = `${__dirname}/../fixtures`;
-          const questions = ['fake-questions'];
-          let action: AddAction;
           const repositoryMock: any = {
             create: jest.fn(),
             findOne: jest.fn(),
@@ -117,55 +114,110 @@ describe('Add action', () => {
             return project;
           };
 
-          describe('When persist project with success', () => {
+          describe('When project not exists', () => {
+            const path = `${__dirname}/../fixtures`;
+            const questions = ['fake-questions'];
+            let action: AddAction;
+
+            describe('When persist project with success', () => {
+              let project: Project;
+              beforeAll(async () => {
+                global.console.log = jest.fn();
+                buildProjectQuestions.mockReturnValue(questions);
+
+                repositoryMock.create.mockReturnValue(true);
+
+                buildProject.mockResolvedValue(projectDefinitionsFactory());
+                createProjectRepository.mockResolvedValue(
+                  repositoryMock as any,
+                );
+
+                action = new AddAction();
+                await action.handle([
+                  {
+                    name: 'alias',
+                    value: alias,
+                  },
+                  {
+                    name: 'path',
+                    value: path,
+                  },
+                ]);
+                project = projectDefinitionsFactory();
+              });
+
+              it('should build questions with project alias', () => {
+                expect(buildProjectQuestions).toHaveBeenCalled();
+              });
+
+              it('should build project with build project questions', () => {
+                expect(buildProject).toHaveBeenCalledWith(
+                  alias,
+                  path,
+                  questions,
+                );
+              });
+
+              it('should persist the built project', () => {
+                expect(repositoryMock.create).toHaveBeenCalledWith(project);
+              });
+
+              it('should show success message on console', () => {
+                expect(console.log).toHaveBeenNthCalledWith(
+                  1,
+                  chalk.green(
+                    `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
+                  ),
+                );
+                expect(console.log).toHaveBeenNthCalledWith(
+                  2,
+                  chalk.green(
+                    `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
+                  ),
+                );
+              });
+            });
+          });
+
+          describe('When project already exists', () => {
+            const filePath = `${__dirname}/../fixtures/projects-file`;
+
             let project: Project;
-            beforeAll(async () => {
-              global.console.log = jest.fn();
-              buildProjectQuestions.mockReturnValue(questions);
+            let errorMessage: string;
 
-              repositoryMock.create.mockReturnValue(true);
-
-              buildProject.mockResolvedValue(projectDefinitionsFactory());
-              createProjectRepository.mockResolvedValue(repositoryMock as any);
-
-              action = new AddAction();
-              await action.handle([
-                {
-                  name: 'alias',
-                  value: alias,
-                },
-                {
-                  name: 'path',
-                  value: path,
-                },
-              ]);
+            beforeAll(() => {
               project = projectDefinitionsFactory();
+              const tasksNames = project
+                .getTasks()
+                .map((task) => task.getName());
+
+              errorMessage =
+                `\nAlready exists a project with alias "${alias}"\n` +
+                `+ Path: ${project.getPath()}\n` +
+                `+ Tasks: ${tasksNames.join(', ')}\n`;
             });
 
-            it('should build questions with project alias', () => {
-              expect(buildProjectQuestions).toHaveBeenCalled();
+            it('should throw an error', async () => {
+              repositoryMock.findOne.mockResolvedValue(project);
+
+              const action = new AddAction();
+              await expect(() =>
+                action.handle([
+                  {
+                    name: 'alias',
+                    value: alias,
+                  },
+                  {
+                    name: 'path',
+                    value: filePath,
+                  },
+                ]),
+              ).rejects.toThrowError(errorMessage);
             });
 
-            it('should build project with build project questions', () => {
-              expect(buildProject).toHaveBeenCalledWith(alias, path, questions);
-            });
-
-            it('should persist the built project', () => {
-              expect(repositoryMock.create).toHaveBeenCalledWith(project);
-            });
-
-            it('should show success message on console', () => {
-              expect(console.log).toHaveBeenNthCalledWith(
-                1,
-                chalk.green(
-                  `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
-                ),
-              );
-              expect(console.log).toHaveBeenNthCalledWith(
-                2,
-                chalk.green(
-                  `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
-                ),
+            it('should log the error message', () => {
+              expect(console.error).toHaveBeenCalledWith(
+                chalk.red(errorMessage),
               );
             });
           });

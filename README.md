@@ -42,9 +42,6 @@ Your chosen tasks should be executed!
 
 ## TODO
 
-- Add questions validations
-  - Validate if directory exists
-  - Validate if project already exists with alias
 - Add other editor options
   - [x] VSCode
   - [ ] PHPStorm

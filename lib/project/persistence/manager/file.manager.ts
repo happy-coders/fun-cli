@@ -1,7 +1,15 @@
 import * as fs from 'fs';
 
 import { Project } from '../../project.entity';
+import { TaskName } from '../../tasks/abstract.task';
+import { createTask } from '../../tasks/task.factory';
 import { AbstractManager } from './abstract.manager';
+
+interface RawProject {
+  alias: string;
+  path: string;
+  tasks: { name: TaskName }[];
+}
 
 export interface ProjectsFileContent {
   projects: Project[];
@@ -17,7 +25,7 @@ export class FileManager extends AbstractManager {
     this.filePath = `${path}/${PROJECTS_FILE_NAME}`;
   }
 
-  async create(project: Project): Promise<boolean> {
+  create(project: Project): boolean {
     this._ensureProjectsFolderExists();
 
     const content = this._getProjectsFileContent();
@@ -45,7 +53,15 @@ export class FileManager extends AbstractManager {
       return freshContent;
     }
 
-    return content;
+    const projects = content.projects.map((project: RawProject) => {
+      const instance = new Project(project.alias, project.path);
+      project.tasks.map((task) => {
+        instance.addTask(createTask(task.name));
+      });
+      return instance;
+    });
+
+    return { projects };
   }
 
   private _ensureProjectsFolderExists() {
@@ -81,8 +97,12 @@ export class FileManager extends AbstractManager {
   public listAll(): Promise<Project[]> {
     throw new Error('Method not implemented.');
   }
-  public findOne(alias: string): Promise<Project | undefined> {
-    throw new Error('Method not implemented.');
+  public findOne(alias: string): Project | undefined {
+    this._ensureProjectsFolderExists();
+
+    const content = this._getProjectsFileContent();
+
+    return content.projects.find((project) => project.isSameAlias(alias));
   }
   public update(alias: string, project: Project): Promise<boolean> {
     throw new Error('Method not implemented.');

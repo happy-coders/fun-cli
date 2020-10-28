@@ -4,18 +4,18 @@ import { FileManager } from '../../../../../../lib/project/persistence/manager/f
 import { Project } from '../../../../../../lib/project/project.entity';
 
 describe('File manager', () => {
-  describe('Create', () => {
+  describe('Find One', () => {
     describe('When folder not exists', () => {
       const path = `${__dirname}/../../../../fixtures/not-existent-folder`;
       const projectsFile = `${path}/projects.json`;
-      let project: Project;
+      const alias = 'funny';
 
-      let result: boolean;
-      beforeAll(async () => {
+      let result: Project | undefined;
+
+      beforeAll(() => {
         const fileManager = new FileManager(path);
 
-        project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.findOne(alias);
       });
 
       afterAll(() => {
@@ -23,16 +23,18 @@ describe('File manager', () => {
         fs.rmdirSync(path);
       });
 
-      it('should create the project in a new file', async () => {
-        expect(result).toBe(true);
+      it('should return undefined', () => {
+        expect(result).toBeUndefined();
+      });
 
+      it('should create the new file with empty content', () => {
         expect(fs.existsSync(projectsFile)).toBe(true);
 
         const fileContent = fs.readFileSync(projectsFile).toString();
 
         expect(fileContent).toStrictEqual(
           JSON.stringify({
-            projects: [project],
+            projects: [],
           }),
         );
       });
@@ -41,30 +43,30 @@ describe('File manager', () => {
     describe('When folder already exists', () => {
       const path = `${__dirname}/../../../../fixtures/projects-folder`;
       const projectsFile = `${path}/projects.json`;
-      let project: Project;
 
-      let result: boolean;
-      beforeAll(async () => {
+      let result: Project | undefined;
+      beforeAll(() => {
         const fileManager = new FileManager(path);
 
-        project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.findOne('project');
       });
 
       afterAll(() => {
         fs.unlinkSync(projectsFile);
       });
 
-      it('should create the projects file on existent folder', async () => {
-        expect(result).toBe(true);
+      it('should return undefined', () => {
+        expect(result).toBeUndefined();
+      });
 
+      it('should create the new file with empty content', () => {
         expect(fs.existsSync(projectsFile)).toBe(true);
 
         const fileContent = fs.readFileSync(projectsFile).toString();
 
         expect(fileContent).toStrictEqual(
           JSON.stringify({
-            projects: [project],
+            projects: [],
           }),
         );
       });
@@ -73,14 +75,12 @@ describe('File manager', () => {
     describe('When projects file already exists', () => {
       const path = `${__dirname}/../../../../fixtures/projects-file`;
       const projectsFile = `${path}/projects.json`;
-      let project: Project;
 
-      let result: boolean;
-      beforeAll(async () => {
+      let result: Project | undefined;
+      beforeAll(() => {
         const fileManager = new FileManager(path);
 
-        project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.findOne('project');
       });
 
       afterAll(() => {
@@ -88,16 +88,18 @@ describe('File manager', () => {
         fs.writeFileSync(projectsFile, JSON.stringify({ projects: [] }));
       });
 
-      it('should add project to existent file', async () => {
-        expect(result).toBe(true);
+      it('should return undefined', () => {
+        expect(result).toBeUndefined();
+      });
 
+      it('should keep the file with empty content', () => {
         expect(fs.existsSync(projectsFile)).toBe(true);
 
         const fileContent = fs.readFileSync(projectsFile).toString();
 
         expect(fileContent).toStrictEqual(
           JSON.stringify({
-            projects: [project],
+            projects: [],
           }),
         );
       });
@@ -105,44 +107,38 @@ describe('File manager', () => {
 
     describe('When already have projects created', () => {
       const path = `${__dirname}/../../../../fixtures/with-projects`;
-      const projectsFile = `${path}/projects.json`;
-      const existentProject = {
-        alias: 'existent',
-        path: '~/Projects/test',
-        tasks: [{ name: 'open-vscode' }],
-      };
-      let project: Project;
+      let fileManager: FileManager;
 
-      let result: boolean;
-      beforeAll(async () => {
-        const fileManager = new FileManager(path);
-
-        project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+      beforeAll(() => {
+        fileManager = new FileManager(path);
       });
 
-      afterAll(() => {
-        // Reset file
-        fs.writeFileSync(
-          projectsFile,
-          JSON.stringify({
-            projects: [existentProject],
-          }),
-        );
+      describe('Find not existent project', () => {
+        let result: Project | undefined;
+        beforeAll(() => {
+          result = fileManager.findOne('not_existent');
+        });
+
+        it('should return the project', () => {
+          expect(result).toBeUndefined();
+        });
       });
 
-      it('should add project to existent file', async () => {
-        expect(result).toBe(true);
+      describe('Find existent project', () => {
+        const existentProject = {
+          alias: 'existent',
+          path: '~/Projects/test',
+          tasks: [{ name: 'open-vscode' }],
+        };
 
-        expect(fs.existsSync(projectsFile)).toBe(true);
+        let result: Project | undefined;
+        beforeAll(() => {
+          result = fileManager.findOne('existent');
+        });
 
-        const fileContent = fs.readFileSync(projectsFile).toString();
-
-        expect(fileContent).toStrictEqual(
-          JSON.stringify({
-            projects: [existentProject, project],
-          }),
-        );
+        it('should return the project', () => {
+          expect(result).toEqual(existentProject);
+        });
       });
     });
   });

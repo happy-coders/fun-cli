@@ -20,4 +20,8 @@ export class Project {
   getPath() {
     return this.path;
   }
+
+  isSameAlias(alias: string) {
+    return this.getAlias() === alias;
+  }
 }

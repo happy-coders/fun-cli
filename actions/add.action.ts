@@ -12,11 +12,28 @@ export class AddAction extends AbstractAction {
     const projectAlias = this.getProjectAlias(inputs);
     const projectPath = this.getProjectPath(inputs);
 
+    const repository = await createProjectRepository();
+
+    const existentProject = await repository.findOne(projectAlias);
+
+    if (!!existentProject) {
+      const tasksNames = existentProject
+        .getTasks()
+        .map((task) => task.getName());
+
+      const errorMessage =
+        `\nAlready exists a project with alias "${projectAlias}"\n` +
+        `+ Path: ${existentProject.getPath()}\n` +
+        `+ Tasks: ${tasksNames.join(', ')}\n`;
+
+      console.error(chalk.red(errorMessage));
+
+      throw new Error(errorMessage);
+    }
+
     const questions = buildProjectQuestions();
 
     const project = await buildProject(projectAlias, projectPath, questions);
-
-    const repository = await createProjectRepository();
 
     const created = await repository.create(project);
 
@@ -42,6 +59,7 @@ export class AddAction extends AbstractAction {
     if (!aliasInput) {
       throw new Error('No alias found in command input');
     }
+
     return aliasInput.value as string;
   }
 
