@@ -105,9 +105,12 @@ export class FileManager extends AbstractManager {
     return content.projects.find((project) => project.isSameAlias(alias));
   }
   public update(alias: string, project: Project): Promise<boolean> {
+    console.log(alias, project);
+
     throw new Error('Method not implemented.');
   }
   public delete(alias: string): Promise<boolean> {
+    console.log(alias);
     throw new Error('Method not implemented.');
   }
 }

@@ -10,20 +10,22 @@
     "npm": ">= 6.11.0"
   },
   "bin": {
-    "fun": "bin/fun.js"
+    "fun": "dist/bin/fun.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
-    "clean": "gulp clean:bundle",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint '{lib,commands,actions}/**/*.ts' --fix",
-    "start": "node bin/fun.js",
+    "start": "node dist/bin/fun.js",
     "prepublish:next": "npm run build",
     "publish:next": "npm publish --access public --tag next",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
-    "test": "jest --config jest-config.json",
-    "test:dev": "npm run clean && jest --config jest-config.json --watchAll",
+    "test": "jest --config jest.config.js",
+    "test:dev": "jest --config jest.config.js --watchAll",
     "prerelease": "npm run build"
   },
   "repository": {

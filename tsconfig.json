@@ -1,13 +1,44 @@
+// {
+//   "compilerOptions": {
+//     "declaration": true,
+//     "lib": ["es2017"],
+//     "module": "commonjs",
+//     "target": "es6",
+//     "skipLibCheck": true,
+//     "sourceMap": false,
+//     "strict": true
+//   },
+//   "include":src/actionsons"srcsrc/actions/commands, "commands"src/liblib"],
+//   "exclude": ["node_modules", "e2e"]
+// }
+
+
 {
+  "include": [
+   "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "e2e"
+  ],
   "compilerOptions": {
-    "declaration": true,
-    "lib": ["es2017"],
     "module": "commonjs",
-    "target": "es6",
-    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "importHelpers": true,
+    "declaration": true,
     "sourceMap": false,
-    "strict": true
-  },
-  "include": ["actions", "bin", "commands", "lib"],
-  "exclude": ["node_modules", "e2e"]
+    "rootDir": "./src",
+    "outDir": "dist",
+    "strict": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  }
 }

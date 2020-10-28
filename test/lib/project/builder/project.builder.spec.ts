@@ -1,9 +1,9 @@
 import * as inquirer from 'inquirer';
 
-import { buildProject } from '../../../../lib/project/builder/project.builder';
-import { BuildProjectQuestionCollection } from '../../../../lib/project/builder/questions.builder';
-import { Project } from '../../../../lib/project/project.entity';
-import { OpenVSCode } from '../../../../lib/project/tasks/open-editor/vscode.task';
+import { buildProject } from '../../../../src/lib/project/builder/project.builder';
+import { BuildProjectQuestionCollection } from '../../../../src/lib/project/builder/questions.builder';
+import { Project } from '../../../../src/lib/project/project.entity';
+import { OpenVSCode } from '../../../../src/lib/project/tasks/open-editor/vscode.task';
 
 jest.mock('inquirer');
 
@@ -12,7 +12,7 @@ const prompt = inquirer.prompt as jest.MockedFunction<inquirer.PromptModule>;
 describe('Build project', () => {
   describe('From questions', () => {
     const alias = 'funny:api';
-    const path = `${__dirname}/../fixtures/projects/awesome-project`;
+    const path = `${__dirname}/../../../fixtures/projects/awesome-project`;
 
     let builtProject: Project;
     beforeAll(async () => {

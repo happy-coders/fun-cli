@@ -1,15 +1,15 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
-import { AddAction } from '../../actions/add.action';
-import * as projectBuilder from '../../lib/project/builder/project.builder';
-import * as projectQuestionsBuilder from '../../lib/project/builder/questions.builder';
-import * as repositoryFactory from '../../lib/project/persistence/repository.factory';
-import { Project } from '../../lib/project/project.entity';
-import { OpenVSCode } from '../../lib/project/tasks/open-editor/vscode.task';
+import { AddAction } from '../../src/actions/add.action';
+import * as projectBuilder from '../../src/lib/project/builder/project.builder';
+import * as projectQuestionsBuilder from '../../src/lib/project/builder/questions.builder';
+import * as repositoryFactory from '../../src/lib/project/persistence/repository.factory';
+import { Project } from '../../src/lib/project/project.entity';
+import { OpenVSCode } from '../../src/lib/project/tasks/open-editor/vscode.task';
 
-jest.mock('../../lib/project/builder/project.builder');
-jest.mock('../../lib/project/builder/questions.builder');
-jest.mock('../../lib/project/persistence/repository.factory');
+jest.mock('../../src/lib/project/builder/project.builder');
+jest.mock('../../src/lib/project/builder/questions.builder');
+jest.mock('../../src/lib/project/persistence/repository.factory');
 
 const buildProject = projectBuilder.buildProject as jest.MockedFunction<
   typeof projectBuilder.buildProject

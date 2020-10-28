@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
-import { FileManager } from '../../../../../../lib/project/persistence/manager/file.manager';
-import { Project } from '../../../../../../lib/project/project.entity';
+import { FileManager } from '../../../../../../src/lib/project/persistence/manager/file.manager';
+import { Project } from '../../../../../../src/lib/project/project.entity';
 
 const fixturesPath = `${__dirname}/../../../../../fixtures`;
 
