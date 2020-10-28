@@ -3,10 +3,12 @@ import * as fs from 'fs';
 import { FileManager } from '../../../../../../lib/project/persistence/manager/file.manager';
 import { Project } from '../../../../../../lib/project/project.entity';
 
+const fixturesPath = `${__dirname}/../../../../../fixtures`;
+
 describe('File manager', () => {
   describe('Find One', () => {
     describe('When folder not exists', () => {
-      const path = `${__dirname}/../../../../fixtures/not-existent-folder`;
+      const path = `${fixturesPath}/not-existent-folder`;
       const projectsFile = `${path}/projects.json`;
       const alias = 'funny';
 
@@ -41,7 +43,7 @@ describe('File manager', () => {
     });
 
     describe('When folder already exists', () => {
-      const path = `${__dirname}/../../../../fixtures/projects-folder`;
+      const path = `${fixturesPath}/projects-folder`;
       const projectsFile = `${path}/projects.json`;
 
       let result: Project | undefined;
@@ -73,7 +75,7 @@ describe('File manager', () => {
     });
 
     describe('When projects file already exists', () => {
-      const path = `${__dirname}/../../../../fixtures/projects-file`;
+      const path = `${fixturesPath}/projects-file`;
       const projectsFile = `${path}/projects.json`;
 
       let result: Project | undefined;
@@ -106,7 +108,7 @@ describe('File manager', () => {
     });
 
     describe('When already have projects created', () => {
-      const path = `${__dirname}/../../../../fixtures/with-projects`;
+      const path = `${fixturesPath}/with-projects`;
       let fileManager: FileManager;
 
       beforeAll(() => {

@@ -1,5 +1,1 @@
-{
-  "projects": [
-    { "alias": "existent", "path": "~/Projects/test", "tasks": ["open-vscode"] }
-  ]
-}
+{"projects":[{"alias":"existent","path":"~/Projects/test","tasks":[{"name":"open-vscode"}]}]}
