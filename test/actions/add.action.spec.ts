@@ -107,9 +107,7 @@ describe('Add action', () => {
           };
           const projectDefinitionsFactory = () => {
             const project = new Project(alias, __dirname);
-
-            const api = new Project(alias, 'api');
-            api.addTask(new OpenVSCode());
+            project.addTask(new OpenVSCode());
 
             return project;
           };

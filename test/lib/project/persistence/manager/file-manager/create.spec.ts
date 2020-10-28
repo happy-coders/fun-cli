@@ -17,7 +17,7 @@ describe('File manager', () => {
         const fileManager = new FileManager(path);
 
         project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.create(project);
       });
 
       afterAll(() => {
@@ -50,7 +50,7 @@ describe('File manager', () => {
         const fileManager = new FileManager(path);
 
         project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.create(project);
       });
 
       afterAll(() => {
@@ -82,7 +82,7 @@ describe('File manager', () => {
         const fileManager = new FileManager(path);
 
         project = new Project('funny', '~/Projects');
-        result = await fileManager.create(project);
+        result = fileManager.create(project);
       });
 
       afterAll(() => {
