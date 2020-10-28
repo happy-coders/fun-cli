@@ -46,13 +46,6 @@ export class FileManager extends AbstractManager {
 
     const content = JSON.parse(buffer.toString());
 
-    if (!content.projects) {
-      const freshContent = this._freshProjectContent();
-      this._write(freshContent);
-
-      return freshContent;
-    }
-
     const projects = content.projects.map((project: RawProject) => {
       const instance = new Project(project.alias, project.path);
       project.tasks.map((task) => {
@@ -71,7 +64,7 @@ export class FileManager extends AbstractManager {
   }
 
   private _createFreshProjectsFile() {
-    this._write({ projects: [] });
+    this._write(this._freshProjectContent());
   }
 
   private _freshProjectContent() {
