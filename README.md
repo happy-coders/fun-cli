@@ -6,7 +6,7 @@
   <img src="https://codecov.io/gh/happy-coders/fun-cli/branch/master/graph/badge.svg" />
 </a>
 
-Open your projects in the most fun way possible! With `fun-cli` you can manage your projects adding alias and a list of tasks to execute when the project open.
+Open your projects in the most fun way possible! With `fun-cli` you can manage your projects adding funny aliases and a list of tasks to execute when the project open.
 
 ## Tasks
 
