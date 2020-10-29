@@ -6,10 +6,11 @@ import { buildProject } from '../lib/project/builder/project.builder';
 import { buildProjectQuestions } from '../lib/project/builder/questions.builder';
 import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { AbstractAction } from './abstract.action';
+import { getProjectAlias } from './input.handler';
 
 export class AddAction extends AbstractAction {
   public async handle(inputs: Input[]) {
-    const projectAlias = this.getProjectAlias(inputs);
+    const projectAlias = getProjectAlias(inputs);
     const projectPath = this.getProjectPath(inputs);
 
     const repository = await createProjectRepository();
@@ -49,18 +50,6 @@ export class AddAction extends AbstractAction {
         ),
       );
     }
-  }
-
-  private getProjectAlias(inputs: Input[]): string {
-    const aliasInput: Input = inputs.find(
-      (input) => input.name === 'alias',
-    ) as Input;
-
-    if (!aliasInput) {
-      throw new Error('No alias found in command input');
-    }
-
-    return aliasInput.value as string;
   }
 
   private getProjectPath(inputs: Input[]): string {

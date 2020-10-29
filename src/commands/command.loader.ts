@@ -1,13 +1,16 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { CommanderStatic } from 'commander';
 
 import { AddAction } from '../actions';
+import { WithAction } from '../actions/with.action';
 import { ERROR_PREFIX } from '../lib/ui';
 import { AddCommand } from './add.command';
+import { WithCommand } from './with.command';
 
 export class CommandLoader {
   public static load(program: CommanderStatic): void {
     new AddCommand(new AddAction()).load(program);
+    new WithCommand(new WithAction()).load(program);
 
     this.handleInvalidCommand(program);
   }

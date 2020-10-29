@@ -1,3 +1,5 @@
+import { Project } from '../project.entity';
+
 export type TaskName = 'open-vscode';
 
 export abstract class Task {
@@ -6,4 +8,8 @@ export abstract class Task {
   getName() {
     return this.name;
   }
+
+  abstract execute(project: Project): Promise<boolean>;
+
+  abstract getLabel(): string;
 }
