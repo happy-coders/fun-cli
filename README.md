@@ -1,10 +1,10 @@
 # Fun CLI
 
-Open your projects in the most fun way possible! With `fun-cli` you can manage your projects adding alias and a list of tasks to execute when the project open. Some tasks are:
+Open your projects in the most fun way possible! With `fun-cli` you can manage your projects adding alias and a list of tasks to execute when the project open.
 
-- Open you preferred text editor, IDE, etc
-- Open spotify in some playlist
-- The sky is the limit!
+## Tasks
+
+- Open project in VSCode
 
 ## Install
 
@@ -40,9 +40,6 @@ fun with awesome:api
 
 Your chosen tasks should be executed!
 
-## TODO
+## Contributing
 
-- Add other editor options
-  - [x] VSCode
-  - [ ] PHPStorm
-- [ ] Make messages and results more beaultiful
+Improve this package adding more funny tasks! PRs are WEEELCOME!
