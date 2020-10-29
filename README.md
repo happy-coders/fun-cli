@@ -1,5 +1,11 @@
 # Fun CLI
 
+![Npm Version](https://img.shields.io/npm/v/@happy-coders/fun-cli)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/happy-coders/fun-cli/CI)
+<a href="https://codecov.io/gh/happy-coders/fun-cli">
+  <img src="https://codecov.io/gh/happy-coders/fun-cli/branch/master/graph/badge.svg" />
+</a>
+
 Open your projects in the most fun way possible! With `fun-cli` you can manage your projects adding alias and a list of tasks to execute when the project open.
 
 ## Tasks
