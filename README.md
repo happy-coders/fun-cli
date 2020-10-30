@@ -2,6 +2,7 @@
 
 ![Npm Version](https://img.shields.io/npm/v/@happy-coders/fun-cli)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/happy-coders/fun-cli/CI)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a5c970b09bad2887a60a/maintainability)](https://codeclimate.com/github/happy-coders/fun-cli/maintainability)
 <a href="https://codecov.io/gh/happy-coders/fun-cli">
   <img src="https://codecov.io/gh/happy-coders/fun-cli/branch/master/graph/badge.svg" />
 </a>

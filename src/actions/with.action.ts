@@ -1,62 +1,48 @@
-import chalk from 'chalk';
-import emoji from 'node-emoji';
-
 import { Input } from '../commands';
 import { createProjectRepository } from '../lib/project/persistence/repository.factory';
-import { ERROR_PREFIX, SUCCESS_PREFIX } from '../lib/ui/prefixes';
+import { Project } from '../lib/project/project.entity';
+import { Task } from '../lib/project/tasks/abstract.task';
+import {
+  TASK_EXECUTED_WITH_SUCCESS,
+  TASK_EXECUTION_FAILED,
+  TASK_EXECUTION_STARTED,
+  WITH_ACTION_DONE,
+  WITH_ACTION_STARTED,
+} from '../lib/ui/messages';
 import { AbstractAction } from './abstract.action';
 import { getProjectAlias } from './input.handler';
 
 export class WithAction extends AbstractAction {
   public async handle(inputs: Input[]) {
+    const project = await this._getProject(inputs);
+
+    console.info(WITH_ACTION_STARTED);
+
+    const tasksExecution = project
+      .getTasks()
+      .map((task) => this._executeTask(task, project));
+
+    await Promise.all(tasksExecution);
+
+    console.info(WITH_ACTION_DONE(project));
+  }
+
+  private async _getProject(inputs: Input[]): Promise<Project> {
     const projectAlias = getProjectAlias(inputs);
 
     const repository = await createProjectRepository();
 
-    const project = await repository.findOne(projectAlias);
+    return repository.findOneOrFail(projectAlias);
+  }
 
-    if (!project) {
-      const errorMessage = `\n${ERROR_PREFIX} Not found a project with alias: ${chalk.red(
-        projectAlias,
-      )}\n`;
+  private async _executeTask(task: Task, project: Project): Promise<void> {
+    process.stdout.write(TASK_EXECUTION_STARTED(task));
 
-      console.error(errorMessage);
-      console.info(
-        `Run "${chalk.yellow(
-          'fun projects',
-        )}" for a list of existent commands.\n`,
-      );
-
-      throw new Error(errorMessage);
+    const executed = await task.execute(project);
+    if (executed) {
+      process.stdout.write(TASK_EXECUTED_WITH_SUCCESS(task));
+    } else {
+      process.stdout.write(TASK_EXECUTION_FAILED(task));
     }
-
-    console.info(`\nRunning your funny project tasks...\n`);
-
-    const tasks = project.getTasks().map(async (task) => {
-      process.stdout.write(
-        `Task to ${chalk.yellow(task.getLabel())}: Executing...\r`,
-      );
-
-      const executed = await task.execute(project);
-      if (executed) {
-        process.stdout.write(
-          `Task to ${chalk.yellow(task.getLabel())}: ${SUCCESS_PREFIX}     \n`,
-        );
-      } else {
-        process.stdout.write(
-          `Task to ${chalk.yellow(task.getLabel())}: ${ERROR_PREFIX}       \n`,
-        );
-      }
-    });
-
-    await Promise.all(tasks);
-
-    console.info(
-      `\n${emoji.get('tada')} All tasks for ${chalk.yellow(
-        project.getAlias(),
-      )} has been executed! Don't worry. Be happy! ${emoji.emojify(
-        ':grin: :computer: :thought_balloon: :moneybag:',
-      )}\n`,
-    );
   }
 }

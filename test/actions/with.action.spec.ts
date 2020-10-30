@@ -11,12 +11,8 @@ const createProjectRepository = repositoryFactory.createProjectRepository as jes
   typeof repositoryFactory.createProjectRepository
 >;
 
-const repositoryMock: any = {
-  create: jest.fn(),
-  findOne: jest.fn(),
-  delete: jest.fn(),
-  listAll: jest.fn(),
-  update: jest.fn(),
+const repositoryMock = {
+  findOneOrFail: jest.fn(),
 };
 
 describe('With action', () => {
@@ -46,7 +42,9 @@ describe('With action', () => {
         )}\n`;
         beforeAll(async () => {
           createProjectRepository.mockResolvedValue(repositoryMock as any);
-          repositoryMock.findOne.mockResolvedValue(undefined);
+          repositoryMock.findOneOrFail.mockRejectedValue(
+            new Error(errorMessage),
+          );
         });
 
         it('should throw error', async () => {
@@ -61,22 +59,8 @@ describe('With action', () => {
         });
 
         it('should call repository passing alias', () => {
-          expect(repositoryMock.findOne).toHaveBeenCalledTimes(1);
-          expect(repositoryMock.findOne).toHaveBeenCalledWith(alias);
-        });
-
-        it('should log error message', () => {
-          expect(console.error).toHaveBeenCalledTimes(1);
-          expect(console.error).toHaveBeenCalledWith(errorMessage);
-        });
-
-        it('should log usage hint', () => {
-          expect(console.info).toHaveBeenCalledTimes(1);
-          expect(console.info).toHaveBeenCalledWith(
-            `Run "${chalk.yellow(
-              'fun projects',
-            )}" for a list of existent commands.\n`,
-          );
+          expect(repositoryMock.findOneOrFail).toHaveBeenCalledTimes(1);
+          expect(repositoryMock.findOneOrFail).toHaveBeenCalledWith(alias);
         });
       });
 
@@ -113,7 +97,7 @@ describe('With action', () => {
           project.getTasks.mockReturnValue([gitPull, openSpotify]);
 
           createProjectRepository.mockResolvedValue(repositoryMock as any);
-          repositoryMock.findOne.mockResolvedValue(project);
+          repositoryMock.findOneOrFail.mockResolvedValue(project);
 
           await action.handle([
             {
