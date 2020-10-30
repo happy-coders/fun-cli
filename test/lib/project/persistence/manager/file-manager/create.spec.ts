@@ -13,7 +13,7 @@ describe('File manager', () => {
       let project: Project;
 
       let result: boolean;
-      beforeAll(async () => {
+      beforeAll(() => {
         const fileManager = new FileManager(path);
 
         project = new Project('funny', '~/Projects');

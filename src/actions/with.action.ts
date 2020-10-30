@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import emoji from 'node-emoji';
 
 import { Input } from '../commands';
 import { createProjectRepository } from '../lib/project/persistence/repository.factory';
@@ -29,7 +30,7 @@ export class WithAction extends AbstractAction {
       throw new Error(errorMessage);
     }
 
-    console.log(`\nRunning your funny project tasks...\n`);
+    console.info(`\nRunning your funny project tasks...\n`);
 
     const tasks = project.getTasks().map(async (task) => {
       process.stdout.write(
@@ -38,20 +39,24 @@ export class WithAction extends AbstractAction {
 
       const executed = await task.execute(project);
       if (executed) {
-        setTimeout(() => {
-          process.stdout.write(
-            `Task to ${chalk.yellow(
-              task.getLabel(),
-            )}: ${SUCCESS_PREFIX}     \n`,
-          );
-        }, 2000);
+        process.stdout.write(
+          `Task to ${chalk.yellow(task.getLabel())}: ${SUCCESS_PREFIX}     \n`,
+        );
       } else {
-        console.error(
-          `${ERROR_PREFIX} Whoops! Error executing the task. It's not funny :(\n`,
+        process.stdout.write(
+          `Task to ${chalk.yellow(task.getLabel())}: ${ERROR_PREFIX}       \n`,
         );
       }
     });
 
     await Promise.all(tasks);
+
+    console.info(
+      `\n${emoji.get('tada')} All tasks for ${chalk.yellow(
+        project.getAlias(),
+      )} has been executed! Don't worry. Be happy! ${emoji.emojify(
+        ':grin: :computer: :thought_balloon: :moneybag:',
+      )}\n`,
+    );
   }
 }

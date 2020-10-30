@@ -5,5 +5,5 @@ module.exports = {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}', '!src/**/*.d.ts'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
 };

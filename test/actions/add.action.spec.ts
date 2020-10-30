@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { AddAction } from '../../src/actions/add.action';
+import { AddAction } from '../../src/actions';
 import * as projectBuilder from '../../src/lib/project/builder/project.builder';
 import * as projectQuestionsBuilder from '../../src/lib/project/builder/questions.builder';
 import * as repositoryFactory from '../../src/lib/project/persistence/repository.factory';
