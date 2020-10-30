@@ -5,6 +5,11 @@ import { Task } from '../project/tasks/abstract.task';
 
 import { ERROR_PREFIX, SUCCESS_PREFIX } from './prefixes';
 
+interface TaskExecutionStatusChangedOptions {
+  endOfLine?: '\r' | '\n';
+  amountOfWhitespaces?: number;
+}
+
 // Errors
 export const PROJECT_NOT_FOUND = (projectAlias: string) =>
   `\n${ERROR_PREFIX} Not found a project with alias: ${chalk.red(
@@ -22,15 +27,32 @@ export const WITH_ACTION_DONE = (project: Project) =>
   )}\n`;
 
 // Task execution
-
 export const TASK_EXECUTION_STARTED = (task: Task) =>
-  `Task to ${chalk.yellow(task.getLabel())}: Executing...\r`;
+  TASK_EXECUTION_STATUS_CHANGED(task, 'Executing...', {
+    endOfLine: '\r',
+  });
 
 export const TASK_EXECUTED_WITH_SUCCESS = (task: Task) =>
-  `Task to ${chalk.yellow(task.getLabel())}: ${SUCCESS_PREFIX}     \n`;
+  TASK_EXECUTION_STATUS_CHANGED(task, SUCCESS_PREFIX, {
+    amountOfWhitespaces: 5,
+  });
 
 export const TASK_EXECUTION_FAILED = (task: Task) =>
-  `Task to ${chalk.yellow(task.getLabel())}: ${ERROR_PREFIX}       \n`;
+  TASK_EXECUTION_STATUS_CHANGED(task, ERROR_PREFIX, {
+    amountOfWhitespaces: 7,
+  });
+
+const TASK_EXECUTION_STATUS_CHANGED = (
+  task: Task,
+  status: string,
+  options: TaskExecutionStatusChangedOptions = {},
+) => {
+  const { amountOfWhitespaces = 0, endOfLine = '\n' } = options;
+
+  return `Task to ${chalk.yellow(task.getLabel())}: ${status}${' '.repeat(
+    amountOfWhitespaces,
+  )}${endOfLine}`;
+};
 
 // Help messages
 export const LIST_PROJECTS_HELP = `Run "${chalk.yellow(
