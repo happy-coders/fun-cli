@@ -5,6 +5,17 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "fun",
+    "cli",
+    "project-managment",
+    "task-automator",
+    "project-setup",
+    "happy-coders",
+    "funny-cli",
+    "typescript",
+    "jest"
+  ],
   "engines": {
     "node": ">= 10.13.0",
     "npm": ">= 6.11.0"
