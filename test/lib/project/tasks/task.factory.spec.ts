@@ -1,13 +1,16 @@
+import { TaskName } from '../../../../src/lib/project/tasks/abstract.task';
 import { OpenVSCode } from '../../../../src/lib/project/tasks/open-editor/vscode.task';
 import { createTask } from '../../../../src/lib/project/tasks/task.factory';
-import { TaskName } from '../../../../src/lib/project/tasks/abstract.task';
 
 describe('Task factory', () => {
   describe('Open vscode', () => {
     it('should return an instance of OpenVSCode', async () => {
-      const task = createTask('open-vscode');
+      const taskName = 'open-vscode';
+      const task = createTask(taskName);
 
       expect(task).toBeInstanceOf(OpenVSCode);
+      expect(task.getName()).toBe(taskName);
+      expect(task.getLabel()).toBe('Open VSCode');
     });
   });
 

@@ -14,7 +14,7 @@ export class OpenVSCode extends Task {
 
       return true;
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       return false;
     }
   }

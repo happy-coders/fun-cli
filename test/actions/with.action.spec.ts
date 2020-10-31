@@ -3,6 +3,7 @@ import emoji from 'node-emoji';
 
 import { WithAction } from '../../src/actions';
 import * as repositoryFactory from '../../src/lib/project/persistence/repository.factory';
+import { Project } from '../../src/lib/project/project.entity';
 import { ERROR_PREFIX, SUCCESS_PREFIX } from '../../src/lib/ui';
 
 jest.mock('../../src/lib/project/persistence/repository.factory');
@@ -71,10 +72,7 @@ describe('With action', () => {
         const openSpotifyLabel = 'Open Spotify';
         const openSpotifyName = 'open-spotify';
 
-        const project = {
-          getAlias: () => alias,
-          getTasks: jest.fn(),
-        };
+        let project: Project;
 
         const gitPull = {
           getLabel: () => gitPullLabel,
@@ -94,7 +92,10 @@ describe('With action', () => {
 
           gitPull.execute.mockResolvedValue(true);
           openSpotify.execute.mockResolvedValue(false);
-          project.getTasks.mockReturnValue([gitPull, openSpotify]);
+
+          project = new Project(alias, 'test');
+          project.addTask(gitPull as any);
+          project.addTask(openSpotify as any);
 
           createProjectRepository.mockResolvedValue(repositoryMock as any);
           repositoryMock.findOneOrFail.mockResolvedValue(project);
