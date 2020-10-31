@@ -16,7 +16,19 @@ export const PROJECT_NOT_FOUND = (projectAlias: string) =>
     projectAlias,
   )}\n`;
 
+export const PROJECT_ALREADY_EXISTS = (projectAlias: string) =>
+  `\n${ERROR_PREFIX} Already exists a project with alias "${chalk.yellow(
+    projectAlias,
+  )}"\n`;
+
 // Actions
+// Add action
+export const ADD_ACTION_SUCCESS = (project: Project) =>
+  `\n${emoji.get('tada')} Wow! Your project "${chalk.yellow(
+    project.getAlias(),
+  )}" has been created with success!\n`;
+
+// With action
 export const WITH_ACTION_STARTED = `\nRunning your funny project tasks...\n`;
 
 export const WITH_ACTION_DONE = (project: Project) =>
@@ -58,3 +70,13 @@ const TASK_EXECUTION_STATUS_CHANGED = (
 export const LIST_PROJECTS_HELP = `Run "${chalk.yellow(
   'fun projects',
 )}" for a list of existent commands.\n`;
+
+export const RUN_COMMAND_HELP = (project: Project) =>
+  `${emoji.get('point_right')} Run "${chalk.yellow(
+    `fun with ${project.getAlias()}`,
+  )}" command and be happy!\n`;
+
+export const PROJECT_DETAILS_HELP = (projectAlias: string) =>
+  `${emoji.get('point_right')} Run "${chalk.yellow(
+    `fun details ${projectAlias}`,
+  )}" for more details about project.\n`;

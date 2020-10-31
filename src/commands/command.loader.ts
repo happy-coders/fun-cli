@@ -3,13 +3,16 @@ import { CommanderStatic } from 'commander';
 
 import { AddAction } from '../actions';
 import { WithAction } from '../actions/with.action';
+import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { ERROR_PREFIX } from '../lib/ui';
 import { AddCommand } from './add.command';
 import { WithCommand } from './with.command';
 
 export class CommandLoader {
-  public static load(program: CommanderStatic): void {
-    new AddCommand(new AddAction()).load(program);
+  public static async load(program: CommanderStatic): Promise<void> {
+    const repository = await createProjectRepository();
+
+    new AddCommand(new AddAction(repository)).load(program);
     new WithCommand(new WithAction()).load(program);
 
     this.handleInvalidCommand(program);

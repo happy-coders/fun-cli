@@ -4,51 +4,53 @@ import * as fs from 'fs';
 import { Input } from '../commands';
 import { buildProject } from '../lib/project/builder/project.builder';
 import { buildProjectQuestions } from '../lib/project/builder/questions.builder';
-import { createProjectRepository } from '../lib/project/persistence/repository.factory';
+import { ProjectRepository } from '../lib/project/persistence/repository';
+import {
+  ADD_ACTION_SUCCESS,
+  PROJECT_ALREADY_EXISTS,
+  PROJECT_DETAILS_HELP,
+  RUN_COMMAND_HELP,
+} from '../lib/ui/messages';
 import { AbstractAction } from './abstract.action';
 import { getProjectAlias } from './input.handler';
 
 export class AddAction extends AbstractAction {
+  constructor(private repository: ProjectRepository) {
+    super();
+  }
+
   public async handle(inputs: Input[]) {
     const projectAlias = getProjectAlias(inputs);
     const projectPath = this.getProjectPath(inputs);
 
-    const repository = await createProjectRepository();
-
-    const existentProject = await repository.findOne(projectAlias);
-
-    if (!!existentProject) {
-      const tasksNames = existentProject
-        .getTasks()
-        .map((task) => task.getName());
-
-      const errorMessage =
-        `\nAlready exists a project with alias "${projectAlias}"\n` +
-        `+ Path: ${existentProject.getPath()}\n` +
-        `+ Tasks: ${tasksNames.join(', ')}\n`;
-
-      console.error(chalk.red(errorMessage));
-
-      throw new Error(errorMessage);
-    }
+    await this._ensureProjectDoesNotExists(projectAlias);
 
     const questions = buildProjectQuestions();
 
     const project = await buildProject(projectAlias, projectPath, questions);
 
-    const created = await repository.create(project);
+    const created = await this.repository.create(project);
 
     if (created) {
-      console.log(
-        chalk.green(
-          `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
-        ),
-      );
-      console.log(
-        chalk.green(
-          `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
-        ),
-      );
+      console.log(ADD_ACTION_SUCCESS(project));
+      console.log(RUN_COMMAND_HELP(project));
+    }
+
+    // TODO: Handle if occurr persisting project
+  }
+
+  private async _ensureProjectDoesNotExists(
+    projectAlias: string,
+  ): Promise<void> {
+    const existentProject = await this.repository.findOne(projectAlias);
+
+    if (!!existentProject) {
+      const errorMessage = PROJECT_ALREADY_EXISTS(projectAlias);
+
+      console.error(errorMessage);
+      console.info(PROJECT_DETAILS_HELP(projectAlias));
+
+      throw new Error(errorMessage);
     }
   }
 

@@ -1,15 +1,15 @@
 import chalk from 'chalk';
+import emoji from 'node-emoji';
 
 import { AddAction } from '../../src/actions';
 import * as projectBuilder from '../../src/lib/project/builder/project.builder';
 import * as projectQuestionsBuilder from '../../src/lib/project/builder/questions.builder';
-import * as repositoryFactory from '../../src/lib/project/persistence/repository.factory';
 import { Project } from '../../src/lib/project/project.entity';
 import { OpenVSCode } from '../../src/lib/project/tasks/open-editor/vscode.task';
+import { ERROR_PREFIX } from '../../src/lib/ui';
 
 jest.mock('../../src/lib/project/builder/project.builder');
 jest.mock('../../src/lib/project/builder/questions.builder');
-jest.mock('../../src/lib/project/persistence/repository.factory');
 
 const buildProject = projectBuilder.buildProject as jest.MockedFunction<
   typeof projectBuilder.buildProject
@@ -17,15 +17,19 @@ const buildProject = projectBuilder.buildProject as jest.MockedFunction<
 const buildProjectQuestions = projectQuestionsBuilder.buildProjectQuestions as jest.MockedFunction<
   typeof projectQuestionsBuilder.buildProjectQuestions
 >;
-const createProjectRepository = repositoryFactory.createProjectRepository as jest.MockedFunction<
-  typeof repositoryFactory.createProjectRepository
->;
 
 describe('Add action', () => {
   describe('Handle', () => {
+    const repositoryMock: any = {
+      create: jest.fn(),
+      findOne: jest.fn(),
+      delete: jest.fn(),
+      listAll: jest.fn(),
+      update: jest.fn(),
+    };
     describe('Without alias on inputs', () => {
       it('should throw error', () => {
-        const action = new AddAction();
+        const action = new AddAction(repositoryMock);
         expect(() => action.handle([])).rejects.toThrowError(
           'No alias found in command input',
         );
@@ -41,7 +45,7 @@ describe('Add action', () => {
 
       describe('Without path on inputs', () => {
         it('should throw error', async () => {
-          const action = new AddAction();
+          const action = new AddAction(repositoryMock);
           await expect(() =>
             action.handle([{ name: 'alias', value: alias }]),
           ).rejects.toThrowError('No path found in command input');
@@ -53,7 +57,7 @@ describe('Add action', () => {
           const notFoundPath = '/var/www/funny';
           const errorMessage = `\nPath "${notFoundPath}" not exists or is unacessible\n`;
           it('should throw an error', async () => {
-            const action = new AddAction();
+            const action = new AddAction(repositoryMock);
             await expect(() =>
               action.handle([
                 {
@@ -77,7 +81,7 @@ describe('Add action', () => {
           const filePath = `${__dirname}/../fixtures/projects-file/projects.json`;
           const errorMessage = '\nPath must be a directory\n';
           it('should throw an error', async () => {
-            const action = new AddAction();
+            const action = new AddAction(repositoryMock);
             await expect(() =>
               action.handle([
                 {
@@ -98,13 +102,6 @@ describe('Add action', () => {
         });
 
         describe('With valid path', () => {
-          const repositoryMock: any = {
-            create: jest.fn(),
-            findOne: jest.fn(),
-            delete: jest.fn(),
-            listAll: jest.fn(),
-            update: jest.fn(),
-          };
           const projectDefinitionsFactory = () => {
             const project = new Project(alias, __dirname);
             project.addTask(new OpenVSCode());
@@ -126,11 +123,8 @@ describe('Add action', () => {
                 repositoryMock.create.mockReturnValue(true);
 
                 buildProject.mockResolvedValue(projectDefinitionsFactory());
-                createProjectRepository.mockResolvedValue(
-                  repositoryMock as any,
-                );
 
-                action = new AddAction();
+                action = new AddAction(repositoryMock);
                 await action.handle([
                   {
                     name: 'alias',
@@ -163,15 +157,15 @@ describe('Add action', () => {
               it('should show success message on console', () => {
                 expect(console.log).toHaveBeenNthCalledWith(
                   1,
-                  chalk.green(
-                    `\nDone! Your project "${project.getAlias()}" has been created with success!\n`,
-                  ),
+                  `\n${emoji.get('tada')} Wow! Your project "${chalk.yellow(
+                    project.getAlias(),
+                  )}" has been created with success!\n`,
                 );
                 expect(console.log).toHaveBeenNthCalledWith(
                   2,
-                  chalk.green(
-                    `  Run "fun with ${project.getAlias()}" and be happy! :D\n`,
-                  ),
+                  `${emoji.get('point_right')} Run "${chalk.yellow(
+                    `fun with ${project.getAlias()}`,
+                  )}" command and be happy!\n`,
                 );
               });
             });
@@ -184,21 +178,18 @@ describe('Add action', () => {
             let errorMessage: string;
 
             beforeAll(() => {
+              global.console.info = jest.fn();
               project = projectDefinitionsFactory();
-              const tasksNames = project
-                .getTasks()
-                .map((task) => task.getName());
 
-              errorMessage =
-                `\nAlready exists a project with alias "${alias}"\n` +
-                `+ Path: ${project.getPath()}\n` +
-                `+ Tasks: ${tasksNames.join(', ')}\n`;
+              errorMessage = `\n${ERROR_PREFIX} Already exists a project with alias "${chalk.yellow(
+                alias,
+              )}"\n`;
             });
 
             it('should throw an error', async () => {
               repositoryMock.findOne.mockResolvedValue(project);
 
-              const action = new AddAction();
+              const action = new AddAction(repositoryMock);
               await expect(() =>
                 action.handle([
                   {
@@ -214,8 +205,14 @@ describe('Add action', () => {
             });
 
             it('should log the error message', () => {
-              expect(console.error).toHaveBeenCalledWith(
-                chalk.red(errorMessage),
+              expect(console.error).toHaveBeenCalledWith(errorMessage);
+            });
+
+            it('should log the info message how get project info', () => {
+              expect(console.info).toHaveBeenCalledWith(
+                `${emoji.get('point_right')} Run "${chalk.yellow(
+                  `fun details ${project.getAlias()}`,
+                )}" for more details about project.\n`,
               );
             });
           });

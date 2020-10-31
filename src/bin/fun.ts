@@ -3,7 +3,7 @@ import commander from 'commander';
 import { CommanderStatic } from 'commander';
 import { CommandLoader } from '../commands';
 
-const bootstrap = () => {
+const bootstrap = async () => {
   const program: CommanderStatic = commander;
   program
     .version(
@@ -14,7 +14,7 @@ const bootstrap = () => {
     .usage('<command> [options]')
     .helpOption('-h, --help', 'Output usage information.');
 
-  CommandLoader.load(program);
+  await CommandLoader.load(program);
   commander.parse(process.argv);
 
   if (!process.argv.slice(2).length) {
