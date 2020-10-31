@@ -48,7 +48,7 @@ export class FileManager extends AbstractManager {
 
     const projects = content.projects.map((project: RawProject) => {
       const instance = new Project(project.alias, project.path);
-      project.tasks.map((task) => {
+      project.tasks.forEach((task) => {
         instance.addTask(createTask(task.name));
       });
       return instance;
