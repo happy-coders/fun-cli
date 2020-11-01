@@ -1,9 +1,10 @@
 import chalk from 'chalk';
 import emoji from 'node-emoji';
 
-import { AddAction } from '../../src/actions';
+import { AddAction } from '../../src/actions/add.action';
 import * as projectBuilder from '../../src/lib/project/builder/project.builder';
 import * as projectQuestionsBuilder from '../../src/lib/project/builder/questions.builder';
+import { ProjectRepository } from '../../src/lib/project/persistence/repository';
 import { Project } from '../../src/lib/project/project.entity';
 import { OpenVSCode } from '../../src/lib/project/tasks/open-editor/vscode.task';
 import { ERROR_PREFIX } from '../../src/lib/ui';
@@ -19,6 +20,27 @@ const buildProjectQuestions = projectQuestionsBuilder.buildProjectQuestions as j
 >;
 
 describe('Add action', () => {
+  describe('Setup', () => {
+    it('should return a function calling handle with inputs', () => {
+      const action = new AddAction({} as ProjectRepository);
+      action.handle = jest.fn();
+      const setup = action.setup();
+
+      const path = '/var/www/html';
+      const alias = 'fun';
+
+      const command = { path };
+
+      setup(alias, command);
+
+      expect(action.handle).toHaveBeenCalledTimes(1);
+      expect(action.handle).toHaveBeenCalledWith([
+        { name: 'alias', value: alias },
+        { name: 'path', value: path },
+      ]);
+    });
+  });
+
   describe('Handle', () => {
     const repositoryMock: any = {
       create: jest.fn(),

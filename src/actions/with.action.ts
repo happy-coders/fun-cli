@@ -1,4 +1,4 @@
-import { Input } from '../commands';
+import { Input } from '../commands/command.input';
 import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { Project } from '../lib/project/project.entity';
 import { Task } from '../lib/project/tasks/abstract.task';

@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { Command } from 'commander';
 import * as fs from 'fs';
 
-import { Input } from '../commands';
+import { Input } from '../commands/command.input';
 import { buildProject } from '../lib/project/builder/project.builder';
 import { buildProjectQuestions } from '../lib/project/builder/questions.builder';
 import { ProjectRepository } from '../lib/project/persistence/repository';

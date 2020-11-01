@@ -1,4 +1,4 @@
-import { Input } from '../commands';
+import { Input } from '../commands/command.input';
 
 export abstract class AbstractAction {
   public abstract handle(
