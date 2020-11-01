@@ -17,10 +17,30 @@ const repositoryMock = {
 };
 
 describe('With action', () => {
+  describe('Setup', () => {
+    it('should return a function calling handle with inputs', () => {
+      const action = new WithAction();
+      action.handle = jest.fn();
+      const setup = action.setup();
+
+      setup('alias');
+
+      expect(action.handle).toHaveBeenCalledTimes(1);
+      expect(action.handle).toHaveBeenCalledWith([
+        { name: 'alias', value: 'alias' },
+      ]);
+    });
+  });
+
   describe('Handle', () => {
+    let action: WithAction;
+
+    beforeAll(() => {
+      action = new WithAction();
+    });
+
     describe('Without alias on inputs', () => {
       it('should throw error', () => {
-        const action = new WithAction();
         expect(() => action.handle([])).rejects.toThrowError(
           'No alias found in command input',
         );
@@ -29,12 +49,10 @@ describe('With action', () => {
 
     describe('With alias', () => {
       const alias = 'funniest-project';
-      let action: WithAction;
 
       beforeAll(() => {
         global.console.error = jest.fn();
         global.console.info = jest.fn();
-        action = new WithAction();
       });
 
       describe('When project not exists', () => {
@@ -42,7 +60,7 @@ describe('With action', () => {
           alias,
         )}\n`;
         beforeAll(async () => {
-          createProjectRepository.mockResolvedValue(repositoryMock as any);
+          createProjectRepository.mockReturnValue(repositoryMock as any);
           repositoryMock.findOneOrFail.mockRejectedValue(
             new Error(errorMessage),
           );
@@ -97,7 +115,7 @@ describe('With action', () => {
           project.addTask(gitPull as any);
           project.addTask(openSpotify as any);
 
-          createProjectRepository.mockResolvedValue(repositoryMock as any);
+          createProjectRepository.mockReturnValue(repositoryMock as any);
           repositoryMock.findOneOrFail.mockResolvedValue(project);
 
           await action.handle([

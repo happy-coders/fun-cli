@@ -1,33 +1,28 @@
 import chalk from 'chalk';
 import { CommanderStatic } from 'commander';
 
-import { AddAction } from '../actions';
-import { WithAction } from '../actions/with.action';
-import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { ERROR_PREFIX } from '../lib/ui';
-import { AddCommand } from './add.command';
-import { WithCommand } from './with.command';
+import { createAddCommand, createWithCommand } from './command.factory';
 
 export class CommandLoader {
-  public static async load(program: CommanderStatic): Promise<void> {
-    const repository = await createProjectRepository();
+  public static load(program: CommanderStatic): void {
+    createAddCommand().load(program);
+    createWithCommand().load(program);
 
-    new AddCommand(new AddAction(repository)).load(program);
-    new WithCommand(new WithAction()).load(program);
-
-    this.handleInvalidCommand(program);
+    program.on('command:*', this.invalidCommandHandler(program));
   }
 
-  private static handleInvalidCommand(program: CommanderStatic) {
-    program.on('command:*', () => {
+  public static invalidCommandHandler(program: CommanderStatic) {
+    return () => {
       console.error(
-        `\n${ERROR_PREFIX} Invalid command: ${chalk.red('%s')}`,
-        program.args.join(' '),
+        `\n${ERROR_PREFIX} Invalid command: ${chalk.red(
+          program.args.join(' '),
+        )}`,
       );
-      console.log(
+      console.info(
         `See ${chalk.red('--help')} for a list of available commands.\n`,
       );
       process.exit(1);
-    });
+    };
   }
 }

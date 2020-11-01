@@ -39,7 +39,7 @@ export class WithAction extends AbstractAction {
   private async _getProject(inputs: Input[]): Promise<Project> {
     const projectAlias = getProjectAlias(inputs);
 
-    const repository = await createProjectRepository();
+    const repository = createProjectRepository();
 
     return repository.findOneOrFail(projectAlias);
   }

@@ -1,0 +1,93 @@
+import chalk from 'chalk';
+import { CommanderStatic } from 'commander';
+
+import { AddCommand } from '../../src/commands/add.command';
+import * as commandsFactory from '../../src/commands/command.factory';
+import { CommandLoader } from '../../src/commands/command.loader';
+import { WithCommand } from '../../src/commands/with.command';
+import { ERROR_PREFIX } from '../../src/lib/ui';
+
+jest.mock('../../src/commands/command.factory');
+
+const createAddCommand = commandsFactory.createAddCommand as jest.MockedFunction<
+  typeof commandsFactory.createAddCommand
+>;
+const createWithCommand = commandsFactory.createWithCommand as jest.MockedFunction<
+  typeof commandsFactory.createWithCommand
+>;
+
+describe('Command loader', () => {
+  const addCommand: AddCommand = {
+    load: jest.fn(),
+  } as any;
+
+  const withCommand: WithCommand = {
+    load: jest.fn(),
+  } as any;
+
+  const program: CommanderStatic = {
+    on: jest.fn(),
+    args: ['a', 'b'],
+  } as any;
+
+  describe('Invalid command handler', () => {
+    beforeAll(() => {
+      global.console.error = jest.fn();
+      global.console.info = jest.fn();
+      global.process.exit = jest.fn() as any;
+
+      const handler = CommandLoader.invalidCommandHandler(program);
+
+      handler();
+    });
+
+    it('should print error message', () => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith(
+        `\n${ERROR_PREFIX} Invalid command: ${chalk.red('a b')}`,
+      );
+    });
+
+    it('should print help command hint', () => {
+      expect(console.info).toHaveBeenCalledTimes(1);
+      expect(console.info).toHaveBeenCalledWith(
+        `See ${chalk.red('--help')} for a list of available commands.\n`,
+      );
+    });
+
+    it('should exit the process with code 1', () => {
+      expect(process.exit).toHaveBeenCalledTimes(1);
+      expect(process.exit).toHaveBeenCalledWith(1);
+    });
+  });
+
+  describe('load', () => {
+    beforeAll(() => {
+      createAddCommand.mockReturnValue(addCommand);
+      createWithCommand.mockReturnValue(withCommand);
+
+      CommandLoader.invalidCommandHandler = jest
+        .fn()
+        .mockReturnValue(jest.fn());
+      CommandLoader.load(program);
+    });
+
+    it('should load AddCommand', () => {
+      expect(addCommand.load).toHaveBeenCalledTimes(1);
+      expect(addCommand.load).toHaveBeenCalledWith(program);
+    });
+
+    it('should load WithCommand', () => {
+      expect(withCommand.load).toHaveBeenCalledTimes(1);
+      expect(withCommand.load).toHaveBeenCalledWith(program);
+    });
+
+    it('should register listener for invalid commands', () => {
+      expect(program.on).toHaveBeenCalledTimes(1);
+      expect(program.on).toHaveBeenCalledWith(
+        'command:*',
+        CommandLoader.invalidCommandHandler(program),
+      );
+    });
+  });
+});

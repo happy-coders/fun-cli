@@ -1,10 +1,9 @@
-import { AbstractManager } from './abstract.manager';
-import { FileManager } from './file.manager';
 import { homedir } from 'os';
 
-export function createManager(
-  driver = 'file',
-): AbstractManager | Promise<AbstractManager> {
+import { AbstractManager } from './abstract.manager';
+import { FileManager } from './file.manager';
+
+export function createManager(driver = 'file'): AbstractManager {
   if (driver === 'file') {
     return new FileManager(`${homedir()}/.fun-cli`);
   }
