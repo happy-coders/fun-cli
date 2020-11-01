@@ -1,5 +1,8 @@
+import chalk from 'chalk';
+
 import { ProjectRepository } from '../../../../src/lib/project/persistence/repository';
 import { Project } from '../../../../src/lib/project/project.entity';
+import { ERROR_PREFIX } from '../../../../src/lib/ui/prefixes';
 
 describe('Project Repository', () => {
   const manager = {
@@ -50,6 +53,52 @@ describe('Project Repository', () => {
 
       expect(manager.findOne).toHaveBeenCalledTimes(1);
       expect(manager.findOne).toHaveBeenCalledWith(project.getAlias());
+    });
+  });
+
+  describe('findOneOrFail', () => {
+    const alias = 'fun';
+    describe('When project not exists', () => {
+      const errorMessage = `\n${ERROR_PREFIX} Not found a project with alias: ${chalk.red(
+        alias,
+      )}\n`;
+
+      beforeAll(() => {
+        global.console.error = jest.fn();
+        global.console.info = jest.fn();
+
+        repo.findOne = jest.fn().mockReturnValue(undefined);
+      });
+
+      it('should throw an error', () => {
+        expect(() => repo.findOneOrFail(alias)).rejects.toThrowError(
+          errorMessage,
+        );
+      });
+
+      it('should print error on console', () => {
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalledWith(errorMessage);
+      });
+
+      it('should print list project help', () => {
+        expect(console.info).toHaveBeenCalledTimes(1);
+        expect(console.info).toHaveBeenCalledWith(
+          `Run "${chalk.yellow(
+            'fun projects',
+          )}" for a list of existent commands.\n`,
+        );
+      });
+    });
+
+    describe('When found project', () => {
+      it('should return the project', async () => {
+        repo.findOne = jest.fn().mockReturnValue(project);
+
+        const result = await repo.findOneOrFail(alias);
+
+        expect(result).toBe(project);
+      });
     });
   });
 
