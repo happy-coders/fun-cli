@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import commander from 'commander';
-import { CommanderStatic } from 'commander';
+import commander, { CommanderStatic } from 'commander';
+
 import { CommandLoader } from '../commands/command.loader';
 
 const bootstrap = () => {

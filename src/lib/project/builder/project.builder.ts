@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 
-import { createTask } from '../tasks/task.factory';
 import { Project } from '../project.entity';
+import { createTask } from '../tasks/task.factory';
 import { BuildProjectQuestionCollection } from './questions.builder';
 
 export async function buildProject(
@@ -12,7 +12,7 @@ export async function buildProject(
   const answers = await inquirer.prompt(questions);
 
   const project = new Project(alias, path);
-  answers.tasks?.forEach((action) => {
+  answers.tasks.forEach((action) => {
     project.addTask(createTask(action));
   });
 

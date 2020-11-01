@@ -1,4 +1,4 @@
-import { FileManager } from './../../../../../src/lib/project/persistence/manager/file.manager';
+import { FileManager } from '../../../../../src/lib/project/persistence/manager/file.manager';
 import { createManager } from '../../../../../src/lib/project/persistence/manager/manager.factory';
 
 describe('Manager factory', () => {

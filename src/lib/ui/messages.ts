@@ -1,8 +1,8 @@
-import { Project } from './../project/project.entity';
 import chalk from 'chalk';
 import emoji from 'node-emoji';
-import { Task } from '../project/tasks/abstract.task';
 
+import { Project } from '../project/project.entity';
+import { Task } from '../project/tasks/abstract.task';
 import { ERROR_PREFIX, SUCCESS_PREFIX } from './prefixes';
 
 interface TaskExecutionStatusChangedOptions {
@@ -57,7 +57,7 @@ export const TASK_EXECUTION_FAILED = (task: Task) =>
 const TASK_EXECUTION_STATUS_CHANGED = (
   task: Task,
   status: string,
-  options: TaskExecutionStatusChangedOptions = {},
+  options: TaskExecutionStatusChangedOptions,
 ) => {
   const { amountOfWhitespaces = 0, endOfLine = '\n' } = options;
 

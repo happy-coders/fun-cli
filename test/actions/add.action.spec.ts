@@ -142,7 +142,7 @@ describe('Add action', () => {
                 global.console.log = jest.fn();
                 buildProjectQuestions.mockReturnValue(questions);
 
-                repositoryMock.create.mockReturnValue(true);
+                repositoryMock.create.mockResolvedValue(true);
 
                 buildProject.mockResolvedValue(projectDefinitionsFactory());
 

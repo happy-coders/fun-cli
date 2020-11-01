@@ -42,14 +42,10 @@ export class AddAction extends AbstractAction {
 
     const project = await buildProject(projectAlias, projectPath, questions);
 
-    const created = await this.repository.create(project);
+    await this.repository.create(project);
 
-    if (created) {
-      console.log(ADD_ACTION_SUCCESS(project));
-      console.log(RUN_COMMAND_HELP(project));
-    }
-
-    // TODO: Handle if occurr persisting project
+    console.log(ADD_ACTION_SUCCESS(project));
+    console.log(RUN_COMMAND_HELP(project));
   }
 
   private async _ensureProjectDoesNotExists(

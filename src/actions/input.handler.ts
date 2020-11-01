@@ -1,4 +1,4 @@
-import { Input } from './../commands/command.input';
+import { Input } from '../commands/command.input';
 
 export function getProjectAlias(inputs: Input[]): string {
   const aliasInput: Input = inputs.find(

@@ -1,4 +1,4 @@
-import { FileManager } from './../../../../src/lib/project/persistence/manager/file.manager';
+import { FileManager } from '../../../../src/lib/project/persistence/manager/file.manager';
 import { ProjectRepository } from '../../../../src/lib/project/persistence/repository';
 import { createProjectRepository } from '../../../../src/lib/project/persistence/repository.factory';
 
