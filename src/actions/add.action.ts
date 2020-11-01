@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { Command } from 'commander';
 import * as fs from 'fs';
 
 import { Input } from '../commands';
@@ -17,6 +18,18 @@ import { getProjectAlias } from './input.handler';
 export class AddAction extends AbstractAction {
   constructor(private repository: ProjectRepository) {
     super();
+  }
+
+  setup(this: AbstractAction): (...args: any[]) => void {
+    return async (alias: string, command: Command) => {
+      const inputs: Input[] = [];
+      inputs.push(
+        { name: 'alias', value: alias },
+        { name: 'path', value: command.path },
+      );
+
+      await this.handle(inputs);
+    };
   }
 
   public async handle(inputs: Input[]) {

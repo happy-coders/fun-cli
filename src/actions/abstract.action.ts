@@ -6,4 +6,6 @@ export abstract class AbstractAction {
     options?: Input[],
     extraFlags?: string[],
   ): Promise<void>;
+
+  public abstract setup(this: AbstractAction): (...args: any[]) => void;
 }

@@ -1,3 +1,5 @@
+import { Command } from 'commander';
+
 import { Input } from '../commands';
 import { createProjectRepository } from '../lib/project/persistence/repository.factory';
 import { Project } from '../lib/project/project.entity';
@@ -13,6 +15,18 @@ import { AbstractAction } from './abstract.action';
 import { getProjectAlias } from './input.handler';
 
 export class WithAction extends AbstractAction {
+  setup(this: WithAction): (...args: any[]) => void {
+    return async (alias: string, command: Command) => {
+      const inputs: Input[] = [];
+      inputs.push(
+        { name: 'alias', value: alias },
+        { name: 'path', value: command.path },
+      );
+
+      await this.handle(inputs);
+    };
+  }
+
   public async handle(inputs: Input[]) {
     const project = await this._getProject(inputs);
 
