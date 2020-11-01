@@ -1,9 +1,9 @@
 import { CommanderStatic } from 'commander';
 
-import { AddAction } from '../../src/actions';
-import { AddCommand } from '../../src/commands/add.command';
+import { WithAction } from '../../src/actions';
+import { WithCommand } from '../../src/commands/with.command';
 
-describe('Add command', () => {
+describe('With command', () => {
   describe('load', () => {
     const program: CommanderStatic = {
       command: jest.fn().mockReturnThis(),
@@ -13,18 +13,18 @@ describe('Add command', () => {
       usage: jest.fn().mockReturnThis(),
       action: jest.fn().mockReturnThis(),
     } as any;
-    const action: AddAction = {
+    const action: WithAction = {
       setup: jest.fn().mockReturnValue(jest.fn()),
     } as any;
 
     beforeAll(() => {
-      const command = new AddCommand(action);
+      const command = new WithCommand(action);
       command.load(program);
     });
 
     it('should define the command', () => {
       expect(program.command).toHaveBeenCalledTimes(1);
-      expect(program.command).toHaveBeenCalledWith('add <project-alias>');
+      expect(program.command).toHaveBeenCalledWith('with <project-alias>');
     });
 
     it('should not allow unknown options', () => {
@@ -34,23 +34,15 @@ describe('Add command', () => {
 
     it('should define the description', () => {
       expect(program.description).toHaveBeenCalledTimes(1);
-      expect(program.description).toHaveBeenCalledWith('Adds fun project.');
-    });
-
-    it('should define the path option as required', () => {
-      expect(program.requiredOption).toHaveBeenCalledTimes(1);
-      expect(program.requiredOption).toHaveBeenCalledWith(
-        '-p, --path <path>',
-        'The absolute path to your fun project.',
-      );
+      expect(program.description).toHaveBeenCalledWith('Runs a fun project.');
     });
 
     it('should define the usage info', () => {
       expect(program.usage).toHaveBeenCalledTimes(1);
-      expect(program.usage).toHaveBeenCalledWith('<project-alias> [options]');
+      expect(program.usage).toHaveBeenCalledWith('<project-alias>');
     });
 
-    it('should define the action calling AddAction setup', () => {
+    it('should define the action calling WithAction setup', () => {
       expect(program.action).toHaveBeenCalledTimes(1);
       expect(program.action).toHaveBeenCalledWith(action.setup());
     });
