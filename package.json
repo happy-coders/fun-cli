@@ -52,7 +52,7 @@
   },
   "homepage": "https://github.com/happy-coders/fun-cli#readme",
   "dependencies": {
-    "chalk": "3.0.0",
+    "chalk": "4.1.0",
     "commander": "6.2.0",
     "execa": "^4.1.0",
     "inquirer": "7.3.3",
