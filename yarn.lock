@@ -1003,12 +1003,12 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@types/os-name@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/os-name/-/os-name-2.0.0.tgz#e25434bcf1a4c61eb155fc304bff2b51e3fd3d01"
-  integrity sha512-YJHW0NjAhnSWeF34rk70IXgyg2Q8qDgT8QLKByHPQ1BgNBVoU9HQsCmkI650NTW0MTMsgKQyZLQJ91M3YlQhzw==
+"@types/os-name@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/os-name/-/os-name-3.1.0.tgz#b11c7096593de485c8272400caac294a3880175e"
+  integrity sha512-cwUfmYiIqH6sHiUNVQSJC8jTukmKoV6HnF9LnrItJyj3Rx+F/DQoV8ULKQzrZUK8r/eWukT25Ytc6BSN8dYoLA==
   dependencies:
-    "@types/node" "*"
+    os-name "*"
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -6297,6 +6297,14 @@ os-locale@^1.4.0:
   dependencies:
     lcid "^1.0.0"
 
+os-name@*, os-name@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/os-name/-/os-name-4.0.0.tgz#6c05c09c41c15848ea74658d12c9606f0f286599"
+  integrity sha512-caABzDdJMbtykt7GmSogEat3faTKQhmZf0BS5l/pZGmP0vPWQjXWqOhbLyK+b6j2/DQPmEvYdzLXJXXLJNVDNg==
+  dependencies:
+    macos-release "^2.2.0"
+    windows-release "^4.0.0"
+
 os-name@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/os-name/-/os-name-3.1.0.tgz#dec19d966296e1cd62d701a5a66ee1ddeae70801"
@@ -6304,14 +6312,6 @@ os-name@3.1.0:
   dependencies:
     macos-release "^2.2.0"
     windows-release "^3.1.0"
-
-os-name@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/os-name/-/os-name-4.0.0.tgz#6c05c09c41c15848ea74658d12c9606f0f286599"
-  integrity sha512-caABzDdJMbtykt7GmSogEat3faTKQhmZf0BS5l/pZGmP0vPWQjXWqOhbLyK+b6j2/DQPmEvYdzLXJXXLJNVDNg==
-  dependencies:
-    macos-release "^2.2.0"
-    windows-release "^4.0.0"
 
 os-tmpdir@~1.0.2:
   version "1.0.2"
