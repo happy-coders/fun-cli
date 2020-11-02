@@ -11,10 +11,8 @@ function hintMessage(
   expected: any,
   received: any,
   options?: MatcherHintOptions,
-  title?: string,
 ) {
   return (
-    (title ? `${title}\n\n` : '') +
     matcherHint(matcherName, undefined, undefined, options) +
     '\n\n' +
     `Expected: ${printExpected(expected)}\n` +

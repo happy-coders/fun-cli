@@ -1,0 +1,5 @@
+exclude_patterns:
+  - 'dist/'
+  - '**/node_modules/'
+  - '**/__tests__/'
+  - 'testSetupFile.ts'
