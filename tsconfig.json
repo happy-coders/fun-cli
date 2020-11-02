@@ -1,6 +1,6 @@
 {
   "include": [
-    "./src", "setup.ts",
+    "./src"
   ],
   "exclude": [
     "**/__tests__/**/*",
