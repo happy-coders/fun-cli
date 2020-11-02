@@ -67,7 +67,7 @@
     "@types/lodash": "^4.14.164",
     "@types/node": "12.12.31",
     "@types/node-emoji": "^1.8.1",
-    "@types/webpack": "4.41.21",
+    "@types/webpack": "4.41.24",
     "@types/webpack-node-externals": "2.5.0",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
