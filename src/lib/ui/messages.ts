@@ -21,6 +21,10 @@ export const PROJECT_ALREADY_EXISTS = (projectAlias: string) =>
     projectAlias,
   )}"\n`;
 
+export const EMPTY_PROJECTS = `\n${emoji.get(
+  'disappointed',
+)} No fun projects found! ${emoji.get('face_palm')}`;
+
 // Actions
 // Add action
 export const ADD_ACTION_SUCCESS = (project: Project) =>
@@ -66,6 +70,20 @@ const TASK_EXECUTION_STATUS_CHANGED = (
   )}${endOfLine}`;
 };
 
+// List action
+export const LIST_PROJECTS = (projects: Project[]) => {
+  const listItemMarker = '\n- ';
+  const projectsAliasesWithHelpCmd = projects.map(
+    (project) => `${project.getAlias()}: fun with ${project.getAlias()}`,
+  );
+
+  return `\n${emoji.emojify(':grimacing: :clap:')} You have ${chalk.yellow(
+    projects.length,
+  )} projects to have fun:${listItemMarker}${projectsAliasesWithHelpCmd.join(
+    listItemMarker,
+  )}\n`;
+};
+
 // Help messages
 export const LIST_PROJECTS_HELP = `Run "${chalk.yellow(
   'fun projects',
@@ -76,7 +94,13 @@ export const RUN_COMMAND_HELP = (project: Project) =>
     `fun with ${project.getAlias()}`,
   )}" command and be happy!\n`;
 
-export const PROJECT_DETAILS_HELP = (projectAlias: string) =>
+export const PROJECT_DETAILS_HELP = (projectAlias?: string) =>
   `${emoji.get('point_right')} Run "${chalk.yellow(
-    `fun details ${projectAlias}`,
+    `fun details ${projectAlias ?? '<project-alias>'}`,
   )}" for more details about project.\n`;
+
+export const ADD_PROJECT_HELP = `\n${emoji.get(
+  'point_right',
+)} Run "${chalk.yellow(
+  'fun add <project-alias> --path <path-to-project>',
+)}" to add a fun project!`;

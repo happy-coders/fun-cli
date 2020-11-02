@@ -2,12 +2,17 @@ import chalk from 'chalk';
 import { CommanderStatic } from 'commander';
 
 import { ERROR_PREFIX } from '../lib/ui';
-import { createAddCommand, createWithCommand } from './command.factory';
+import {
+  createAddCommand,
+  createListCommand,
+  createWithCommand,
+} from './command.factory';
 
 export class CommandLoader {
   public static load(program: CommanderStatic): void {
     createAddCommand().load(program);
     createWithCommand().load(program);
+    createListCommand().load(program);
 
     program.on('command:*', this.invalidCommandHandler(program));
   }

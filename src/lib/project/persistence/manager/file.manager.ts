@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { sortBy } from 'lodash';
 
 import { Project } from '../../project.entity';
 import { TaskName } from '../../tasks/abstract.task';
@@ -87,9 +88,14 @@ export class FileManager extends AbstractManager {
     fs.mkdirSync(this.path, { recursive: true });
   }
 
-  public listAll(): Promise<Project[]> {
-    throw new Error('Method not implemented.');
+  public listAll(): Project[] {
+    this._ensureProjectsFolderExists();
+
+    const content = this._getProjectsFileContent();
+
+    return sortBy(content.projects, (project) => project.getAlias());
   }
+
   public findOne(alias: string): Project | undefined {
     this._ensureProjectsFolderExists();
 
@@ -97,11 +103,13 @@ export class FileManager extends AbstractManager {
 
     return content.projects.find((project) => project.isSameAlias(alias));
   }
+
   public update(alias: string, project: Project): Promise<boolean> {
     console.log(alias, project);
 
     throw new Error('Method not implemented.');
   }
+
   public delete(alias: string): Promise<boolean> {
     console.log(alias);
     throw new Error('Method not implemented.');

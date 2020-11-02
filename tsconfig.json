@@ -1,25 +1,10 @@
-// {
-//   "compilerOptions": {
-//     "declaration": true,
-//     "lib": ["es2017"],
-//     "module": "commonjs",
-//     "target": "es6",
-//     "skipLibCheck": true,
-//     "sourceMap": false,
-//     "strict": true
-//   },
-//   "include":src/actionsons"srcsrc/actions/commands, "commands"src/liblib"],
-//   "exclude": ["node_modules", "e2e"]
-// }
-
-
 {
   "include": [
-   "./src"
+    "./src", "setup.ts",
   ],
   "exclude": [
-    "node_modules",
-    "e2e"
+    "**/__tests__/**/*",
+    "**/__mocks__/**/*",
   ],
   "compilerOptions": {
     "module": "commonjs",
@@ -30,7 +15,7 @@
     "importHelpers": true,
     "declaration": true,
     "sourceMap": false,
-    "rootDir": "./src",
+    "rootDir": "src",
     "outDir": "dist",
     "strict": true,
     "skipLibCheck": true,

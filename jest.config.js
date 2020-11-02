@@ -6,4 +6,10 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
+  setupFilesAfterEnv: ['jest-extended', './testSetupFile.ts'],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
 };
