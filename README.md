@@ -16,12 +16,6 @@ Open your projects in the most fun way possible! With `fun-cli` you can manage y
 ## Install
 
 ```sh
-yarn add -g @happy-coders/fun-cli
-```
-
-or
-
-```sh
 npm i -g @happy-coders/fun-cli
 ```
 
