@@ -169,9 +169,7 @@ describe('With action', () => {
             2,
             `\n${emoji.get('tada')} All tasks for ${chalk.yellow(
               project.getAlias(),
-            )} has been executed! Don't worry. Be happy! ${emoji.emojify(
-              ':grin: :computer: :thought_balloon: :moneybag:',
-            )}\n`,
+            )} has been executed!\n`,
           );
         });
       });

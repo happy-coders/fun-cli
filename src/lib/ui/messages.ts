@@ -38,9 +38,7 @@ export const WITH_ACTION_STARTED = `\nRunning your funny project tasks...\n`;
 export const WITH_ACTION_DONE = (project: Project) =>
   `\n${emoji.get('tada')} All tasks for ${chalk.yellow(
     project.getAlias(),
-  )} has been executed! Don't worry. Be happy! ${emoji.emojify(
-    ':grin: :computer: :thought_balloon: :moneybag:',
-  )}\n`;
+  )} has been executed!\n`;
 
 // Task execution
 export const TASK_EXECUTION_STARTED = (task: Task) =>
