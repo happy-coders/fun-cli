@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 
-import { ProjectRepository } from '../../../../lib/project/persistence/repository';
-import { Project } from '../../../../lib/project/project.entity';
-import { ERROR_PREFIX } from '../../../../lib/ui/prefixes';
+import { ProjectRepository } from '../../../../core/project/persistence/repository';
+import { Project } from '../../../../core/project/project.entity';
+import { ERROR_PREFIX } from '../../../../core/ui/prefixes';
 
 describe('Project Repository', () => {
   const manager = {

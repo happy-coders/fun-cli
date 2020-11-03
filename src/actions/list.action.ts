@@ -1,10 +1,10 @@
-import { ProjectRepository } from '../lib/project/persistence/repository';
+import { ProjectRepository } from '../core/project/persistence/repository';
 import {
   ADD_PROJECT_HELP,
   EMPTY_PROJECTS,
   LIST_PROJECTS,
   PROJECT_DETAILS_HELP,
-} from '../lib/ui/messages';
+} from '../core/ui/messages';
 import { AbstractAction } from './abstract.action';
 
 export class ListAction extends AbstractAction {

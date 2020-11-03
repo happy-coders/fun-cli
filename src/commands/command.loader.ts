@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { CommanderStatic } from 'commander';
 
-import { ERROR_PREFIX } from '../lib/ui';
+import { ERROR_PREFIX } from '../core/ui';
 import {
   createAddCommand,
   createListCommand,

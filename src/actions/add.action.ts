@@ -3,15 +3,15 @@ import { Command } from 'commander';
 import * as fs from 'fs';
 
 import { Input } from '../commands/command.input';
-import { buildProject } from '../lib/project/builder/project.builder';
-import { buildProjectQuestions } from '../lib/project/builder/questions.builder';
-import { ProjectRepository } from '../lib/project/persistence/repository';
+import { buildProject } from '../core/project/builder/project.builder';
+import { buildProjectQuestions } from '../core/project/builder/questions.builder';
+import { ProjectRepository } from '../core/project/persistence/repository';
 import {
   ADD_ACTION_SUCCESS,
   PROJECT_ALREADY_EXISTS,
   PROJECT_DETAILS_HELP,
   RUN_COMMAND_HELP,
-} from '../lib/ui/messages';
+} from '../core/ui/messages';
 import { AbstractAction } from './abstract.action';
 import { getProjectAlias } from './input.handler';
 

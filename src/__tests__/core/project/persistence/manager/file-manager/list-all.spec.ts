@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 
-import { FileManager } from '../../../../../../lib/project/persistence/manager/file.manager';
-import { Project } from '../../../../../../lib/project/project.entity';
-import { OpenVSCode } from '../../../../../../lib/project/tasks/open-editor/vscode.task';
+import { FileManager } from '../../../../../../core/project/persistence/manager/file.manager';
+import { Project } from '../../../../../../core/project/project.entity';
+import { OpenVSCode } from '../../../../../../core/project/tasks/open-editor/vscode.task';
 import { assertCreatedFileWithEmptyContent } from './common-asserts';
 
 const fixturesPath = `${__dirname}/../../../../../fixtures`;

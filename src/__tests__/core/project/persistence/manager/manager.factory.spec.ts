@@ -1,5 +1,5 @@
-import { FileManager } from '../../../../../lib/project/persistence/manager/file.manager';
-import { createManager } from '../../../../../lib/project/persistence/manager/manager.factory';
+import { FileManager } from '../../../../../core/project/persistence/manager/file.manager';
+import { createManager } from '../../../../../core/project/persistence/manager/manager.factory';
 
 describe('Manager factory', () => {
   describe('With default driver', () => {

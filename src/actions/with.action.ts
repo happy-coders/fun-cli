@@ -1,14 +1,14 @@
 import { Input } from '../commands/command.input';
-import { createProjectRepository } from '../lib/project/persistence/repository.factory';
-import { Project } from '../lib/project/project.entity';
-import { Task } from '../lib/project/tasks/abstract.task';
+import { createProjectRepository } from '../core/project/persistence/repository.factory';
+import { Project } from '../core/project/project.entity';
+import { Task } from '../core/project/tasks/abstract.task';
 import {
   TASK_EXECUTED_WITH_SUCCESS,
   TASK_EXECUTION_FAILED,
   TASK_EXECUTION_STARTED,
   WITH_ACTION_DONE,
   WITH_ACTION_STARTED,
-} from '../lib/ui/messages';
+} from '../core/ui/messages';
 import { AbstractAction } from './abstract.action';
 import { getProjectAlias } from './input.handler';
 

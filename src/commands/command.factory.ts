@@ -1,7 +1,7 @@
 import { WithAction } from '../actions';
 import { AddAction } from '../actions/add.action';
 import { ListAction } from '../actions/list.action';
-import { createProjectRepository } from '../lib/project/persistence/repository.factory';
+import { createProjectRepository } from '../core/project/persistence/repository.factory';
 import { AddCommand } from './add.command';
 import { ListCommand } from './list.command';
 import { WithCommand } from './with.command';

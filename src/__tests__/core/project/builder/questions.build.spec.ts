@@ -1,6 +1,6 @@
 import { CheckboxQuestion } from 'inquirer';
 
-import { buildProjectQuestions } from '../../../../lib/project/builder/questions.builder';
+import { buildProjectQuestions } from '../../../../core/project/builder/questions.builder';
 
 describe('Build questions', () => {
   describe('For project', () => {

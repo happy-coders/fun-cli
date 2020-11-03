@@ -8,7 +8,7 @@ import {
   WithCommand,
 } from '../../commands';
 import * as commandsFactory from '../../commands/command.factory';
-import { ERROR_PREFIX } from '../../lib/ui';
+import { ERROR_PREFIX } from '../../core/ui';
 
 jest.mock('../../commands/command.factory');
 
