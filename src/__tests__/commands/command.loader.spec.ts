@@ -4,6 +4,7 @@ import { CommanderStatic } from 'commander';
 import {
   AddCommand,
   CommandLoader,
+  DeleteCommand,
   ListCommand,
   WithCommand,
 } from '../../commands';
@@ -21,6 +22,9 @@ const createWithCommand = commandsFactory.createWithCommand as jest.MockedFuncti
 const createListCommand = commandsFactory.createListCommand as jest.MockedFunction<
   typeof commandsFactory.createListCommand
 >;
+const createDeleteCommand = commandsFactory.createDeleteCommand as jest.MockedFunction<
+  typeof commandsFactory.createDeleteCommand
+>;
 
 describe('Command loader', () => {
   const addCommand: AddCommand = {
@@ -32,6 +36,10 @@ describe('Command loader', () => {
   } as any;
 
   const listCommand: ListCommand = {
+    load: jest.fn(),
+  } as any;
+
+  const deleteCommand: DeleteCommand = {
     load: jest.fn(),
   } as any;
 
@@ -76,6 +84,7 @@ describe('Command loader', () => {
       createAddCommand.mockReturnValue(addCommand);
       createWithCommand.mockReturnValue(withCommand);
       createListCommand.mockReturnValue(listCommand);
+      createDeleteCommand.mockReturnValue(deleteCommand);
 
       CommandLoader.invalidCommandHandler = jest
         .fn()
@@ -96,6 +105,11 @@ describe('Command loader', () => {
     it('should load ListCommand', () => {
       expect(listCommand.load).toHaveBeenCalledTimes(1);
       expect(listCommand.load).toHaveBeenCalledWith(program);
+    });
+
+    it('should load DeleteCommand', () => {
+      expect(deleteCommand.load).toHaveBeenCalledTimes(1);
+      expect(deleteCommand.load).toHaveBeenCalledWith(program);
     });
 
     it('should register listener for invalid commands', () => {

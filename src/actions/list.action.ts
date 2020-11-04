@@ -14,7 +14,11 @@ export class ListAction extends AbstractAction {
 
   setup(this: AbstractAction): (...args: any[]) => void {
     return async () => {
-      await this.handle([]);
+      try {
+        await this.handle([]);
+      } catch (e) {
+        process.exit(1);
+      }
     };
   }
 

@@ -21,7 +21,7 @@ export class Project {
     return this.path;
   }
 
-  isSameAlias(alias: string) {
+  hasSameAlias(alias: string) {
     return this.getAlias() === alias;
   }
 }

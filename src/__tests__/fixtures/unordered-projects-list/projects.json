@@ -1,14 +1,1 @@
-{
-  "projects": [
-    {
-      "alias": "z",
-      "path": "~/Projects/test",
-      "tasks": [{ "name": "open-vscode" }]
-    },
-    {
-      "alias": "a",
-      "path": "~/Projects/test",
-      "tasks": [{ "name": "open-vscode" }]
-    }
-  ]
-}
+{"projects":[{"alias":"z","path":"~/Projects/test","tasks":[{"name":"open-vscode"}]},{"alias":"a","path":"~/Projects/test","tasks":[{"name":"open-vscode"}]}]}

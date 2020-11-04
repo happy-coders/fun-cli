@@ -27,8 +27,6 @@ export class FileManager extends AbstractManager {
   }
 
   create(project: Project): boolean {
-    this._ensureProjectsFolderExists();
-
     const content = this._getProjectsFileContent();
 
     content.projects.push(project);
@@ -39,6 +37,8 @@ export class FileManager extends AbstractManager {
   }
 
   private _getProjectsFileContent(): ProjectsFileContent {
+    this._ensureProjectsFolderExists();
+
     if (!this._projectsFileExists()) {
       this._createFreshProjectsFile();
     }
@@ -89,19 +89,19 @@ export class FileManager extends AbstractManager {
   }
 
   public listAll(): Project[] {
-    this._ensureProjectsFolderExists();
-
     const content = this._getProjectsFileContent();
 
     return sortBy(content.projects, (project) => project.getAlias());
   }
 
   public findOne(alias: string): Project | undefined {
-    this._ensureProjectsFolderExists();
-
     const content = this._getProjectsFileContent();
 
-    return content.projects.find((project) => project.isSameAlias(alias));
+    return this._findProjectByAlias(content.projects, alias);
+  }
+
+  private _findProjectByAlias(projects: Project[], alias: string) {
+    return projects.find((project) => project.hasSameAlias(alias));
   }
 
   public update(alias: string, project: Project): Promise<boolean> {
@@ -110,8 +110,15 @@ export class FileManager extends AbstractManager {
     throw new Error('Method not implemented.');
   }
 
-  public delete(alias: string): Promise<boolean> {
-    console.log(alias);
-    throw new Error('Method not implemented.');
+  public delete(alias: string): boolean {
+    const content = this._getProjectsFileContent();
+
+    const updatedProjects = content.projects.filter(
+      (project) => !project.hasSameAlias(alias),
+    );
+
+    this._write({ projects: updatedProjects });
+
+    return updatedProjects.length < content.projects.length;
   }
 }

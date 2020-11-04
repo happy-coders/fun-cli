@@ -25,6 +25,10 @@ export const EMPTY_PROJECTS = `\n${emoji.get(
   'disappointed',
 )} No fun projects found! ${emoji.get('face_palm')}`;
 
+export const UNEXPECTED_ERROR = `\n${emoji.get(
+  'disappointed_relieved',
+)} Whoops, something went wrong! It's not fun...\n`;
+
 // Actions
 // Add action
 export const ADD_ACTION_SUCCESS = (project: Project) =>
@@ -82,9 +86,19 @@ export const LIST_PROJECTS = (projects: Project[]) => {
   )}\n`;
 };
 
+// Delete action
+export const PROJECT_DELETED_WITH_SUCCESS = (project: Project) =>
+  `\n${emoji.get(
+    'disappointed',
+  )} The project "${project.getAlias()}" is not fun anymore, it happens...\n`;
+
+export const NOT_CONFIRMED_DELETION = `\n${emoji.get(
+  'sweat_smile',
+)} Phew, that was close...\n`;
+
 // Help messages
 export const LIST_PROJECTS_HELP = `Run "${chalk.yellow(
-  'fun projects',
+  'fun list',
 )}" for a list of existent commands.\n`;
 
 export const RUN_COMMAND_HELP = (project: Project) =>
@@ -102,3 +116,9 @@ export const ADD_PROJECT_HELP = `\n${emoji.get(
 )} Run "${chalk.yellow(
   'fun add <project-alias> --path <path-to-project>',
 )}" to add a fun project!`;
+
+// Jokes
+export const DELETE_FAIL_JOKE = (project: Project) =>
+  `\n${emoji.get(
+    'thought_balloon',
+  )} Be positive! At least you can have fun with "${project.getAlias()} for the last time..."\n`;

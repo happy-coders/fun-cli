@@ -4,6 +4,7 @@ import { CommanderStatic } from 'commander';
 import { ERROR_PREFIX } from '../core/ui';
 import {
   createAddCommand,
+  createDeleteCommand,
   createListCommand,
   createWithCommand,
 } from './command.factory';
@@ -13,6 +14,7 @@ export class CommandLoader {
     createAddCommand().load(program);
     createWithCommand().load(program);
     createListCommand().load(program);
+    createDeleteCommand().load(program);
 
     program.on('command:*', this.invalidCommandHandler(program));
   }

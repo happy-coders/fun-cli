@@ -1,11 +1,15 @@
-import { AddCommand } from '../../commands/add.command';
+import {
+  AddCommand,
+  DeleteCommand,
+  ListCommand,
+  WithCommand,
+} from '../../commands';
 import {
   createAddCommand,
+  createDeleteCommand,
   createListCommand,
   createWithCommand,
 } from '../../commands/command.factory';
-import { ListCommand } from '../../commands/list.command';
-import { WithCommand } from '../../commands/with.command';
 
 describe('Command factory', () => {
   describe('createAddCommand', () => {
@@ -21,6 +25,14 @@ describe('Command factory', () => {
       const command = createListCommand();
 
       expect(command).toBeInstanceOf(ListCommand);
+    });
+  });
+
+  describe('createDeleteCommand', () => {
+    it('should return an instance of DeleteCommand', () => {
+      const command = createDeleteCommand();
+
+      expect(command).toBeInstanceOf(DeleteCommand);
     });
   });
 

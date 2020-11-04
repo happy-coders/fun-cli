@@ -28,7 +28,11 @@ export class AddAction extends AbstractAction {
         { name: 'path', value: command.path },
       );
 
-      await this.handle(inputs);
+      try {
+        await this.handle(inputs);
+      } catch (e) {
+        process.exit(1);
+      }
     };
   }
 

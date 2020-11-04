@@ -18,7 +18,11 @@ export class WithAction extends AbstractAction {
       const inputs: Input[] = [];
       inputs.push({ name: 'alias', value: alias });
 
-      await this.handle(inputs);
+      try {
+        await this.handle(inputs);
+      } catch (e) {
+        process.exit(1);
+      }
     };
   }
 

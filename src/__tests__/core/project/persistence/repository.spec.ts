@@ -85,7 +85,7 @@ describe('Project Repository', () => {
         expect(console.info).toHaveBeenCalledTimes(1);
         expect(console.info).toHaveBeenCalledWith(
           `Run "${chalk.yellow(
-            'fun projects',
+            'fun list',
           )}" for a list of existent commands.\n`,
         );
       });
