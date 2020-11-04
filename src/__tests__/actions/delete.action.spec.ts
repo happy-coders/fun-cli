@@ -203,7 +203,7 @@ describe('With action', () => {
                 1,
                 `\n${emoji.get(
                   'thought_balloon',
-                )} Be positive! At least you can have fun with "${project.getAlias()} for the last time..."\n`,
+                )} Be positive! At least you can have fun with "${project.getAlias()}" for the last time...\n`,
               );
             });
           });

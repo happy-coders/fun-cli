@@ -39,16 +39,16 @@ describe('List action', () => {
           1,
           `\n${emoji.get('disappointed')} No fun projects found! ${emoji.get(
             'face_palm',
-          )}`,
+          )}\n`,
         );
       });
 
       it('should print a help message with cmd to add project', () => {
         expect(console.info).toHaveBeenNthCalledWith(
           2,
-          `\n${emoji.get('point_right')} Run "${chalk.yellow(
+          `${emoji.get('point_right')} Run "${chalk.yellow(
             'fun add <project-alias> --path <path-to-project>',
-          )}" to add a fun project!`,
+          )}" to add a fun project!\n`,
         );
       });
     });
