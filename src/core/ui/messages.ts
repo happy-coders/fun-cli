@@ -20,6 +20,9 @@ const mountEmojiPrefixedMessage = (
   options?: PrefixedMessageOptions,
 ) => mountPrefixedMessage(emoji.get(emojiName), message, options);
 
+const mountSuccessPrefixedMessage = (message: string) =>
+  mountEmojiPrefixedMessage('tada', message);
+
 const mountErrorPrefixedMessage = (message: string) =>
   mountPrefixedMessage(ERROR_PREFIX, message);
 
@@ -57,8 +60,7 @@ export const UNEXPECTED_ERROR = mountEmojiPrefixedMessage(
 // Actions
 // Add action
 export const ADD_ACTION_SUCCESS = (project: Project) =>
-  mountEmojiPrefixedMessage(
-    'tada',
+  mountSuccessPrefixedMessage(
     `Wow! Your project "${chalk.yellow(
       project.getAlias(),
     )}" has been created with success!`,
@@ -68,8 +70,7 @@ export const ADD_ACTION_SUCCESS = (project: Project) =>
 export const WITH_ACTION_STARTED = `\nRunning your funny project tasks...\n`;
 
 export const WITH_ACTION_DONE = (project: Project) =>
-  mountEmojiPrefixedMessage(
-    'tada',
+  mountSuccessPrefixedMessage(
     `All tasks for ${chalk.yellow(project.getAlias())} has been executed!`,
   );
 
