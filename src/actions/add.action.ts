@@ -13,7 +13,7 @@ import {
   RUN_COMMAND_HELP,
 } from '../core/ui/messages';
 import { AbstractAction } from './abstract.action';
-import { getProjectAlias } from './input.handler';
+import { createInputsFromAlias, getProjectAlias } from './input.handler';
 
 export class AddAction extends AbstractAction {
   constructor(private repository: ProjectRepository) {
@@ -22,11 +22,8 @@ export class AddAction extends AbstractAction {
 
   setup(this: AbstractAction): (...args: any[]) => void {
     return async (alias: string, command: Command) => {
-      const inputs: Input[] = [];
-      inputs.push(
-        { name: 'alias', value: alias },
-        { name: 'path', value: command.path },
-      );
+      const inputs = createInputsFromAlias(alias);
+      inputs.push({ name: 'path', value: command.path });
 
       try {
         await this.handle(inputs);

@@ -11,7 +11,7 @@ import {
   UNEXPECTED_ERROR,
 } from '../core/ui/messages';
 import { AbstractAction } from './abstract.action';
-import { getProjectAlias } from './input.handler';
+import { createInputsFromAlias, getProjectAlias } from './input.handler';
 
 export class DeleteAction extends AbstractAction {
   constructor(private repository: ProjectRepository) {
@@ -20,8 +20,7 @@ export class DeleteAction extends AbstractAction {
 
   setup(this: DeleteAction): (...args: any[]) => void {
     return async (alias: string) => {
-      const inputs: Input[] = [];
-      inputs.push({ name: 'alias', value: alias });
+      const inputs = createInputsFromAlias(alias);
 
       try {
         await this.handle(inputs);

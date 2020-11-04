@@ -11,3 +11,10 @@ export function getProjectAlias(inputs: Input[]): string {
 
   return aliasInput.value as string;
 }
+
+export function createInputsFromAlias(alias: string): Input[] {
+  const inputs: Input[] = [];
+  inputs.push({ name: 'alias', value: alias });
+
+  return inputs;
+}
