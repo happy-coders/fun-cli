@@ -13,16 +13,8 @@ import { AbstractAction } from './abstract.action';
 import { createInputsFromAlias, getProjectAlias } from './input.handler';
 
 export class WithAction extends AbstractAction {
-  setup(this: WithAction): (...args: any[]) => void {
-    return async (alias: string) => {
-      const inputs = createInputsFromAlias(alias);
-
-      try {
-        await this.handle(inputs);
-      } catch (e) {
-        process.exit(1);
-      }
-    };
+  public mountInputs(alias: string): Input[] {
+    return createInputsFromAlias(alias);
   }
 
   public async handle(inputs: Input[]) {

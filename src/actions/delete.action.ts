@@ -18,16 +18,8 @@ export class DeleteAction extends AbstractAction {
     super();
   }
 
-  setup(this: DeleteAction): (...args: any[]) => void {
-    return async (alias: string) => {
-      const inputs = createInputsFromAlias(alias);
-
-      try {
-        await this.handle(inputs);
-      } catch (e) {
-        process.exit(1);
-      }
-    };
+  public mountInputs(alias: string): Input[] {
+    return createInputsFromAlias(alias);
   }
 
   public async handle(inputs: Input[]) {

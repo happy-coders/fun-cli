@@ -1,3 +1,4 @@
+import { Input } from '../commands/command.input';
 import { ProjectRepository } from '../core/project/persistence/repository';
 import {
   ADD_PROJECT_HELP,
@@ -12,14 +13,8 @@ export class ListAction extends AbstractAction {
     super();
   }
 
-  setup(this: AbstractAction): (...args: any[]) => void {
-    return async () => {
-      try {
-        await this.handle([]);
-      } catch (e) {
-        process.exit(1);
-      }
-    };
+  public mountInputs(): Input[] {
+    return [];
   }
 
   public async handle() {

@@ -20,22 +20,16 @@ export class AddAction extends AbstractAction {
     super();
   }
 
-  setup(this: AbstractAction): (...args: any[]) => void {
-    return async (alias: string, command: Command) => {
-      const inputs = createInputsFromAlias(alias);
-      inputs.push({ name: 'path', value: command.path });
+  public mountInputs(alias: string, command: Command): Input[] {
+    const inputs = createInputsFromAlias(alias);
+    inputs.push({ name: 'path', value: command.path });
 
-      try {
-        await this.handle(inputs);
-      } catch (e) {
-        process.exit(1);
-      }
-    };
+    return inputs;
   }
 
   public async handle(inputs: Input[]) {
     const projectAlias = getProjectAlias(inputs);
-    const projectPath = this.getProjectPath(inputs);
+    const projectPath = this._getProjectPath(inputs);
 
     await this._ensureProjectDoesNotExists(projectAlias);
 
@@ -64,7 +58,7 @@ export class AddAction extends AbstractAction {
     }
   }
 
-  private getProjectPath(inputs: Input[]): string {
+  private _getProjectPath(inputs: Input[]): string {
     const pathInput: Input = inputs.find(
       (input) => input.name === 'path',
     ) as Input;
