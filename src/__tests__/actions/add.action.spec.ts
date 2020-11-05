@@ -3,7 +3,6 @@ import emoji from 'node-emoji';
 
 import { AddAction } from '../../actions/add.action';
 import * as projectBuilder from '../../core/project/builder/project.builder';
-import * as projectQuestionsBuilder from '../../core/project/builder/questions.builder';
 import { ProjectRepository } from '../../core/project/persistence/repository';
 import { Project } from '../../core/project/project.entity';
 import { OpenVSCode } from '../../core/project/tasks/open-editor/vscode.task';
@@ -15,29 +14,58 @@ jest.mock('../../core/project/builder/questions.builder');
 const buildProject = projectBuilder.buildProject as jest.MockedFunction<
   typeof projectBuilder.buildProject
 >;
-const buildProjectQuestions = projectQuestionsBuilder.buildProjectQuestions as jest.MockedFunction<
-  typeof projectQuestionsBuilder.buildProjectQuestions
->;
 
 describe('Add action', () => {
   describe('Setup', () => {
-    it('should return a function calling handle with inputs', () => {
-      const action = new AddAction({} as ProjectRepository);
-      action.handle = jest.fn();
-      const setup = action.setup();
+    describe('When occurr some error handling action', () => {
+      it('should exit process with code 1', async () => {
+        global.process.exit = jest.fn() as any;
+        const action = new AddAction({} as ProjectRepository);
+        action.handle = jest.fn().mockRejectedValue(new Error());
 
-      const path = '/var/www/html';
-      const alias = 'fun';
+        const setup = action.setup();
 
-      const command = { path };
+        const path = '/var/www/html';
+        const alias = 'fun';
 
-      setup(alias, command);
+        const command = { path };
 
-      expect(action.handle).toHaveBeenCalledTimes(1);
-      expect(action.handle).toHaveBeenCalledWith([
-        { name: 'alias', value: alias },
-        { name: 'path', value: path },
-      ]);
+        await setup(alias, command);
+
+        expect(action.handle).toHaveBeenCalledTimes(1);
+        expect(action.handle).toHaveBeenCalledWith([
+          { name: 'alias', value: alias },
+          { name: 'path', value: path },
+        ]);
+
+        expect(process.exit).toHaveBeenCalledTimes(1);
+        expect(process.exit).toHaveBeenCalledWith(1);
+      });
+    });
+
+    describe('When handle with success', () => {
+      it('should return a function calling handle with inputs', () => {
+        global.process.exit = jest.fn() as any;
+
+        const action = new AddAction({} as ProjectRepository);
+        action.handle = jest.fn();
+        const setup = action.setup();
+
+        const path = '/var/www/html';
+        const alias = 'fun';
+
+        const command = { path };
+
+        setup(alias, command);
+
+        expect(action.handle).toHaveBeenCalledTimes(1);
+        expect(action.handle).toHaveBeenCalledWith([
+          { name: 'alias', value: alias },
+          { name: 'path', value: path },
+        ]);
+
+        expect(process.exit).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -133,14 +161,12 @@ describe('Add action', () => {
 
           describe('When project not exists', () => {
             const path = `${__dirname}/../fixtures`;
-            const questions = ['fake-questions'];
             let action: AddAction;
 
             describe('When persist project with success', () => {
               let project: Project;
               beforeAll(async () => {
                 global.console.log = jest.fn();
-                buildProjectQuestions.mockReturnValue(questions);
 
                 repositoryMock.create.mockResolvedValue(true);
 
@@ -160,16 +186,8 @@ describe('Add action', () => {
                 project = projectDefinitionsFactory();
               });
 
-              it('should build questions with project alias', () => {
-                expect(buildProjectQuestions).toHaveBeenCalled();
-              });
-
               it('should build project with build project questions', () => {
-                expect(buildProject).toHaveBeenCalledWith(
-                  alias,
-                  path,
-                  questions,
-                );
+                expect(buildProject).toHaveBeenCalledWith(alias, path);
               });
 
               it('should persist the built project', () => {

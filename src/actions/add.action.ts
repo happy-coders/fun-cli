@@ -4,7 +4,6 @@ import * as fs from 'fs';
 
 import { Input } from '../commands/command.input';
 import { buildProject } from '../core/project/builder/project.builder';
-import { buildProjectQuestions } from '../core/project/builder/questions.builder';
 import { ProjectRepository } from '../core/project/persistence/repository';
 import {
   ADD_ACTION_SUCCESS,
@@ -29,13 +28,10 @@ export class AddAction extends AbstractAction {
 
   public async handle(inputs: Input[]) {
     const projectAlias = getProjectAlias(inputs);
-    const projectPath = this._getProjectPath(inputs);
-
     await this._ensureProjectDoesNotExists(projectAlias);
 
-    const questions = buildProjectQuestions();
-
-    const project = await buildProject(projectAlias, projectPath, questions);
+    const projectPath = this._getProjectPath(inputs);
+    const project = await buildProject(projectAlias, projectPath);
 
     await this.repository.create(project);
 
@@ -46,9 +42,9 @@ export class AddAction extends AbstractAction {
   private async _ensureProjectDoesNotExists(
     projectAlias: string,
   ): Promise<void> {
-    const existentProject = await this.repository.findOne(projectAlias);
+    const project = await this.repository.findOne(projectAlias);
 
-    if (!!existentProject) {
+    if (!!project) {
       const errorMessage = PROJECT_ALREADY_EXISTS(projectAlias);
 
       console.error(errorMessage);

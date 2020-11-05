@@ -1,7 +1,7 @@
 import { Input } from '../commands/command.input';
 
 export abstract class AbstractAction {
-  setup(this: AbstractAction): (...args: any[]) => void {
+  setup(this: AbstractAction): (...args: any[]) => Promise<void> {
     return async (...args: any[]) => {
       const inputs = this.mountInputs(...args);
 
