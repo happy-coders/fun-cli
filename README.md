@@ -45,6 +45,10 @@ Your chosen tasks should be executed!
 
 Run the command `fun list` to list your created projects.
 
+### Deleting projects
+
+Run the command `fun delete <project-alias>` and confirm to delete some project.
+
 ## Contributing
 
 Improve this package adding more funny tasks! PRs are WEEELCOME!
