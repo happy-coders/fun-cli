@@ -31,11 +31,6 @@ jobs:
         env:
           CI: true
 
-      - name: Clear cache
-        run: yarn test --clearCache
-        env:
-          CI: true
-
       - name: Test
         run: yarn test --ci --coverage --maxWorkers=2
         env:
