@@ -10,8 +10,9 @@
     "module": "commonjs",
     "lib": [
       "dom",
-      "esnext"
+      "es5"
     ],
+    "target": "es5",
     "importHelpers": true,
     "declaration": true,
     "sourceMap": false,

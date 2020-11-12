@@ -20,25 +20,20 @@
     "node": ">= 10.13.0",
     "npm": ">= 6.11.0"
   },
+  "main": "bin/fun.js",
+  "preferGlobal": true,
   "bin": {
     "fun": "bin/fun.js"
   },
   "files": [
-    "lib",
-    "bin"
+    "bin",
+    "lib"
   ],
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint 'src/**/*.ts' --fix",
     "start": "node bin/fun.js",
-    "prepublish:next": "npm run build",
-    "publish:next": "npm publish --access public --tag next",
-    "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish --access public",
-    "test": "jest --config jest.config.js",
-    "test:dev": "jest --config jest.config.js --watchAll",
-    "prerelease": "npm run build"
+    "test": "jest --config jest.config.js"
   },
   "repository": {
     "type": "git",
