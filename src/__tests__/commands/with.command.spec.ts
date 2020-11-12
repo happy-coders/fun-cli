@@ -1,7 +1,7 @@
 import { CommanderStatic } from 'commander';
 
-import { WithAction } from '../../actions';
-import { WithCommand } from '../../commands/with.command';
+import { WithAction } from '../../lib/actions';
+import { WithCommand } from '../../lib/commands/with.command';
 
 describe('With command', () => {
   describe('load', () => {

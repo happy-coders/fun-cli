@@ -3,13 +3,13 @@ import {
   DeleteCommand,
   ListCommand,
   WithCommand,
-} from '../../commands';
+} from '../../lib/commands';
 import {
   createAddCommand,
   createDeleteCommand,
   createListCommand,
   createWithCommand,
-} from '../../commands/command.factory';
+} from '../../lib/commands/command.factory';
 
 describe('Command factory', () => {
   describe('createAddCommand', () => {

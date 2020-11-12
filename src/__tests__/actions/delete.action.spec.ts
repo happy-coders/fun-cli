@@ -2,13 +2,13 @@ import chalk from 'chalk';
 import * as inquirer from 'inquirer';
 import emoji from 'node-emoji';
 
-import { DeleteAction } from '../../actions';
-import * as questionBuilder from '../../core/project/builder/questions.builder';
-import { Project } from '../../core/project/project.entity';
-import { ERROR_PREFIX } from '../../core/ui';
+import { DeleteAction } from '../../lib/actions';
+import * as questionBuilder from '../../lib/core/project/builder/questions.builder';
+import { Project } from '../../lib/core/project/project.entity';
+import { ERROR_PREFIX } from '../../lib/core/ui';
 
-jest.mock('../../core/project/persistence/repository.factory');
-jest.mock('../../core/project/builder/questions.builder');
+jest.mock('../../lib/core/project/persistence/repository.factory');
+jest.mock('../../lib/core/project/builder/questions.builder');
 jest.mock('inquirer');
 
 const buildDeleteProjectConfirmationQuestion = questionBuilder.buildDeleteProjectConfirmationQuestion as jest.MockedFunction<

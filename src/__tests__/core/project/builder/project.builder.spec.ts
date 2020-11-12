@@ -1,8 +1,8 @@
 import * as inquirer from 'inquirer';
 
-import { buildProject } from '../../../../core/project/builder/project.builder';
-import { Project } from '../../../../core/project/project.entity';
-import { OpenVSCode } from '../../../../core/project/tasks/open-editor/vscode.task';
+import { buildProject } from '../../../../lib/core/project/builder/project.builder';
+import { Project } from '../../../../lib/core/project/project.entity';
+import { OpenVSCode } from '../../../../lib/core/project/tasks/open-editor/vscode.task';
 
 jest.mock('inquirer');
 

@@ -4,8 +4,8 @@ import { CheckboxQuestion, ConfirmQuestion } from 'inquirer';
 import {
   buildDeleteProjectConfirmationQuestion,
   buildProjectQuestions,
-} from '../../../../core/project/builder/questions.builder';
-import { Project } from '../../../../core/project/project.entity';
+} from '../../../../lib/core/project/builder/questions.builder';
+import { Project } from '../../../../lib/core/project/project.entity';
 
 describe('Build questions', () => {
   describe('For project', () => {

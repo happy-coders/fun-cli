@@ -1,10 +1,10 @@
 import chalk from 'chalk';
 import emoji from 'node-emoji';
 
-import { ListAction } from '../../actions/list.action';
-import { ProjectRepository } from '../../core/project/persistence/repository';
-import { Project } from '../../core/project/project.entity';
-import { OpenVSCode } from '../../core/project/tasks/open-editor/vscode.task';
+import { ListAction } from '../../lib/actions/list.action';
+import { ProjectRepository } from '../../lib/core/project/persistence/repository';
+import { Project } from '../../lib/core/project/project.entity';
+import { OpenVSCode } from '../../lib/core/project/tasks/open-editor/vscode.task';
 
 describe('List action', () => {
   describe('Setup', () => {

@@ -1,7 +1,7 @@
 import { CommanderStatic } from 'commander';
 
-import { AddAction } from '../../actions';
-import { AddCommand } from '../../commands/add.command';
+import { AddAction } from '../../lib/actions';
+import { AddCommand } from '../../lib/commands/add.command';
 
 describe('Add command', () => {
   describe('load', () => {

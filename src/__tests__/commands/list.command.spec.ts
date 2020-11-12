@@ -1,7 +1,7 @@
 import { CommanderStatic } from 'commander';
 
-import { ListAction } from '../../actions/list.action';
-import { ListCommand } from '../../commands/list.command';
+import { ListAction } from '../../lib/actions/list.action';
+import { ListCommand } from '../../lib/commands/list.command';
 
 describe('List command', () => {
   describe('load', () => {

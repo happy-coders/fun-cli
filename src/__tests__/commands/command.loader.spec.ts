@@ -7,11 +7,11 @@ import {
   DeleteCommand,
   ListCommand,
   WithCommand,
-} from '../../commands';
-import * as commandsFactory from '../../commands/command.factory';
-import { ERROR_PREFIX } from '../../core/ui';
+} from '../../lib/commands';
+import * as commandsFactory from '../../lib/commands/command.factory';
+import { ERROR_PREFIX } from '../../lib/core/ui';
 
-jest.mock('../../commands/command.factory');
+jest.mock('../../lib/commands/command.factory');
 
 const createAddCommand = commandsFactory.createAddCommand as jest.MockedFunction<
   typeof commandsFactory.createAddCommand

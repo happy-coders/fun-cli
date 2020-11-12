@@ -1,12 +1,12 @@
 import chalk from 'chalk';
 import emoji from 'node-emoji';
 
-import { WithAction } from '../../actions';
-import * as repositoryFactory from '../../core/project/persistence/repository.factory';
-import { Project } from '../../core/project/project.entity';
-import { ERROR_PREFIX, SUCCESS_PREFIX } from '../../core/ui';
+import { WithAction } from '../../lib/actions';
+import * as repositoryFactory from '../../lib/core/project/persistence/repository.factory';
+import { Project } from '../../lib/core/project/project.entity';
+import { ERROR_PREFIX, SUCCESS_PREFIX } from '../../lib/core/ui';
 
-jest.mock('../../core/project/persistence/repository.factory');
+jest.mock('../../lib/core/project/persistence/repository.factory');
 
 const createProjectRepository = repositoryFactory.createProjectRepository as jest.MockedFunction<
   typeof repositoryFactory.createProjectRepository

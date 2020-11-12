@@ -6,7 +6,8 @@ node_modules/
 
 # output
 coverage
-dist
+lib
+bin
 
 # configuration
 /.vscode

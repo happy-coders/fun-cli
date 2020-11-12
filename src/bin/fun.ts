@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import commander, { CommanderStatic } from 'commander';
 
-import { CommandLoader } from '../commands/command.loader';
+import { CommandLoader } from '../lib/commands/command.loader';
 
 const bootstrap = () => {
   const program: CommanderStatic = commander;
   program
     .version(
-      require('../../package.json').version,
+      require('../package.json').version,
       '-v, --version',
       'Output the current version.',
     )

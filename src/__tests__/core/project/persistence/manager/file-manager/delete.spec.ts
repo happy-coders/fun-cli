@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { FileManager } from '../../../../../../core/project/persistence/manager/file.manager';
+import { FileManager } from '../../../../../../lib/core/project/persistence/manager/file.manager';
 import { assertCreatedFileWithEmptyContent } from './common-asserts';
 
 const fixturesPath = `${__dirname}/../../../../../fixtures`;

@@ -1,7 +1,7 @@
 import { CommanderStatic } from 'commander';
 
-import { DeleteAction } from '../../actions';
-import { DeleteCommand } from '../../commands';
+import { DeleteAction } from '../../lib/actions';
+import { DeleteCommand } from '../../lib/commands';
 
 describe('Delete command', () => {
   describe('load', () => {

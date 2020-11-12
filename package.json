@@ -1,6 +1,6 @@
 {
   "name": "@happy-coders/fun-cli",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.1",
   "description": "Be your project management more fun!",
   "publishConfig": {
     "access": "public"
@@ -21,16 +21,17 @@
     "npm": ">= 6.11.0"
   },
   "bin": {
-    "fun": "dist/bin/fun.js"
+    "fun": "bin/fun.js"
   },
   "files": [
-    "dist"
+    "lib",
+    "bin"
   ],
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint 'src/**/*.ts' --fix",
-    "start": "node dist/bin/fun.js",
+    "start": "node bin/fun.js",
     "prepublish:next": "npm run build",
     "publish:next": "npm publish --access public --tag next",
     "prepublish:npm": "npm run build",

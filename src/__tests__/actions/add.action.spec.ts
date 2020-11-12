@@ -1,15 +1,15 @@
 import chalk from 'chalk';
 import emoji from 'node-emoji';
 
-import { AddAction } from '../../actions/add.action';
-import * as projectBuilder from '../../core/project/builder/project.builder';
-import { ProjectRepository } from '../../core/project/persistence/repository';
-import { Project } from '../../core/project/project.entity';
-import { OpenVSCode } from '../../core/project/tasks/open-editor/vscode.task';
-import { ERROR_PREFIX } from '../../core/ui';
+import { AddAction } from '../../lib/actions/add.action';
+import * as projectBuilder from '../../lib/core/project/builder/project.builder';
+import { ProjectRepository } from '../../lib/core/project/persistence/repository';
+import { Project } from '../../lib/core/project/project.entity';
+import { OpenVSCode } from '../../lib/core/project/tasks/open-editor/vscode.task';
+import { ERROR_PREFIX } from '../../lib/core/ui';
 
-jest.mock('../../core/project/builder/project.builder');
-jest.mock('../../core/project/builder/questions.builder');
+jest.mock('../../lib/core/project/builder/project.builder');
+jest.mock('../../lib/core/project/builder/questions.builder');
 
 const buildProject = projectBuilder.buildProject as jest.MockedFunction<
   typeof projectBuilder.buildProject

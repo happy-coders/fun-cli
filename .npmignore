@@ -17,8 +17,6 @@ CONTRIBUTE.md
 !*.d.ts
 
 # configuration
-renovate.json
-gulpfile.js
 tsconfig.json
 tslint.json
 tools

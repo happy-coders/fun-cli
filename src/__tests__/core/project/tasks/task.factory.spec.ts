@@ -1,6 +1,6 @@
-import { TaskName } from '../../../../core/project/tasks/abstract.task';
-import { OpenVSCode } from '../../../../core/project/tasks/open-editor/vscode.task';
-import { createTask } from '../../../../core/project/tasks/task.factory';
+import { TaskName } from '../../../../lib/core/project/tasks/abstract.task';
+import { OpenVSCode } from '../../../../lib/core/project/tasks/open-editor/vscode.task';
+import { createTask } from '../../../../lib/core/project/tasks/task.factory';
 
 describe('Task factory', () => {
   describe('Open vscode', () => {
