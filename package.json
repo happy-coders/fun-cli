@@ -1,6 +1,6 @@
 {
   "name": "@happy-coders/fun-cli",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Be your project management more fun!",
   "publishConfig": {
     "access": "public"
